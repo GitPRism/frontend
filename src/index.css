@@ -1,6 +1,16 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+@theme {
+  --color-deepBlack: #020408;
+  --color-charcoal: #0e1116;
+  --color-shadow: #272c32;
+  --color-ocean: #385e6f;
+  --color-sky: #3fa1cc;
+  --color-royal: #3c83f0;
+  --color-navy: #233155;
+}
+
 /* 전체 HTML과 Body 초기화 */
 html,
 body {
