@@ -633,6 +633,16 @@
     postcss "^8.4.41"
     tailwindcss "4.0.14"
 
+"@tailwindcss/vite@^4.0.14":
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/vite/-/vite-4.0.14.tgz#9d02b8925ce6eab307494d05e024566be0c205dd"
+  integrity sha512-y69ztPTRFy+13EPS/7dEFVl7q2Goh1pQueVO8IfGeyqSpcx/joNJXFk0lLhMgUbF0VFJotwRSb9ZY7Xoq3r26Q==
+  dependencies:
+    "@tailwindcss/node" "4.0.14"
+    "@tailwindcss/oxide" "4.0.14"
+    lightningcss "1.29.2"
+    tailwindcss "4.0.14"
+
 "@tanstack/query-core@5.68.0":
   version "5.68.0"
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.68.0.tgz#3765573de58741c68fb80b128d3e3ffb4d80cb68"
@@ -1090,6 +1100,11 @@ csstype@^3.0.2:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.3.tgz#d80ff294d114fb0e6ac500fbf85b60137d7eff81"
   integrity sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==
+
+daisyui@^5.0.6:
+  version "5.0.6"
+  resolved "https://registry.yarnpkg.com/daisyui/-/daisyui-5.0.6.tgz#c07e81e0367f83d375dddc22219014ab25499f87"
+  integrity sha512-/e/9Gw/2y9oawBJlWkJMSEhRXdmfOLvcPl+6q/x2rPEdIVOtebs1t3ex2vwySl9vCRs1GGNBKCiL+P60Ps/wUw==
 
 data-view-buffer@^1.0.2:
   version "1.0.2"
