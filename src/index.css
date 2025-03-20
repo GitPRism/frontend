@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 /* 전체 HTML과 Body 초기화 */
 html,
