@@ -1,5 +1,12 @@
+import SideBar from "@/components/SideBar";
+
 function Home() {
-  return <div className="text-amber-50">메인페이지</div>;
+  return (
+    <div>
+      <SideBar />
+      메인페이지
+    </div>
+  );
 }
 
 export default Home;
