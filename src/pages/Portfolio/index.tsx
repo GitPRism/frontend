@@ -1,5 +1,11 @@
+import SideBar from "@/components/SideBar";
+
 function Portfolio() {
-  return <div className="text-amber-50">포트폴리오 페이지</div>;
+  return (
+    <div className="text-amber-50">
+      <SideBar />
+    </div>
+  );
 }
 
 export default Portfolio;

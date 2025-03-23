@@ -4,7 +4,7 @@ import PortfolioLink from "./PortfolioLink";
 
 function SideBar() {
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer w-fit lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
       <div className="drawer-side bg-charcoal min-h-full w-80">

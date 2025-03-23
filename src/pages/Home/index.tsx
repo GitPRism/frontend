@@ -1,10 +1,11 @@
 import SideBar from "@/components/SideBar";
+import Header from "@/components/Header";
 
 function Home() {
   return (
-    <div>
+    <div className="flex ">
       <SideBar />
-      메인페이지
+      <Header />
     </div>
   );
 }
