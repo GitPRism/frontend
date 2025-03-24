@@ -1,13 +1,5 @@
-import SideBar from "@/components/SideBar";
-import Header from "@/components/Header";
-
 function ProjectEvaluation() {
-  return (
-    <div className="flex">
-      <SideBar />
-      <Header />
-    </div>
-  );
+  return <div className="text-amber-50">프로젝트 종합 평가</div>;
 }
 
 export default ProjectEvaluation;
