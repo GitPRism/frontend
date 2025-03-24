@@ -7,7 +7,7 @@ function SideBar() {
     <div className="drawer w-fit lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
 
-      <div className="drawer-side bg-charcoal min-h-full w-80">
+      <div className="drawer-side bg-charcoal ">
         <div className="h-full p-4 flex flex-col justify-between items-center">
           <Avatar />
 
