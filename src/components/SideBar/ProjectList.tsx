@@ -25,7 +25,7 @@ function ProjectList() {
           }`}
           onClick={() => {
             setSelectedCategory("프로젝트");
-            navigate("/home");
+            navigate(`/home/${encodeURIComponent(selectedProject || "")}`);
           }}
         >
           프로젝트

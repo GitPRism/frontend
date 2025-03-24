@@ -13,7 +13,7 @@ function App() {
       <Route path="/" element={<Onboarding />} />
       <Route path="/" element={<SidebarLayout />}>
         <Route element={<HeaderLayout />}>
-          <Route path="/home" element={<Home />} />
+          <Route path="/home/:projectId" element={<Home />} />
           <Route path="/prfeedback" element={<PRFeedback />} />
           <Route path="/projectevaluation" element={<ProjectEvaluation />} />
         </Route>
