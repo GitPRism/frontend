@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useInitialProject } from "@/hooks/useInitialProject";
 import { useSidebarStore } from "@/store/useSidebarStore";
 import { useNavigate } from "react-router-dom";
 
@@ -12,17 +12,9 @@ function ProjectList() {
 
   const navigate = useNavigate();
 
-  const projects = ["프로젝트 1", "프로젝트 2", "프로젝트 3"];
+  useInitialProject();
 
-  useEffect(() => {
-    if (
-      selectedCategory === "프로젝트" &&
-      !selectedProject &&
-      projects.length > 0
-    ) {
-      setSelectedProject(projects[0]); // 첫 번째 프로젝트 자동 선택
-    }
-  }, [selectedCategory, selectedProject, projects, setSelectedProject]);
+  const projects = ["프로젝트 1", "프로젝트 2", "프로젝트 3"];
 
   return (
     <li>
@@ -33,7 +25,7 @@ function ProjectList() {
           }`}
           onClick={() => {
             setSelectedCategory("프로젝트");
-            navigate("/home");
+            navigate(`/home/${encodeURIComponent(selectedProject || "")}`);
           }}
         >
           프로젝트

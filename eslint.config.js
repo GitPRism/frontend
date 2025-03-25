@@ -7,27 +7,36 @@ import tseslint from "typescript-eslint";
 import prettier from "eslint-plugin-prettier";
 import eslintConfigPrettier from "eslint-config-prettier";
 
-export default tseslint.config(
-  { ignores: ["dist"] },
+export default [
   {
-    extends: [
-      js.configs.recommended,
-      ...tseslint.configs.recommended,
-      "plugin:react/recommended",
-      "plugin:@typescript-eslint/recommended",
-      "prettier", // Prettier와 ESLint 충돌 방지
-    ],
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      ecmaVersion: 2020,
-      parser: tseslint.parser, // TypeScript 지원 추가
-      globals: globals.browser,
-    },
+    ignores: ["dist/**"],
+  },
+  {
+    files: ["**/*.{js,jsx,ts,tsx}"],
     plugins: {
-      react: react,
+      react,
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      prettier: prettier, // Prettier 추가
+      prettier,
+    },
+    languageOptions: {
+      ecmaVersion: 2020,
+      sourceType: "module",
+      parser: tseslint.parser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
+      globals: {
+        ...globals.browser,
+        ...globals.es2020,
+      },
+    },
+    settings: {
+      react: {
+        version: "detect",
+      },
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -35,7 +44,9 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
-      "prettier/prettier": "error", // Prettier 규칙 적용
+      "prettier/prettier": "error",
+      "react/react-in-jsx-scope": "off",
+      "react/prop-types": "off",
     },
-  }
-);
+  },
+];

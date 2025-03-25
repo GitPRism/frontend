@@ -1,11 +1,15 @@
 import { useNavigate } from "react-router-dom";
-
+import { useSidebarStore } from "@/store/useSidebarStore";
+import { useInitialProject } from "@/hooks/useInitialProject";
 function Button() {
   const navigate = useNavigate();
+  const { setSelectedCategory, selectedProject } = useSidebarStore();
+  useInitialProject(); // 첫 번째 프로젝트 자동 선택
 
   // 임시로 홈으로 이동하게 해둠. 로그인 로직 구현 필요
   const handleClick = () => {
-    navigate("/home");
+    setSelectedCategory("프로젝트");
+    navigate(`/home/${encodeURIComponent(selectedProject || "")}`);
   };
 
   return (
