@@ -1,6 +1,6 @@
 import { useInitialProject } from "@/hooks/useInitialProject";
 import { useSidebarStore } from "@/store/useSidebarStore";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function ProjectList() {
   const {
@@ -33,17 +33,18 @@ function ProjectList() {
         <ul className="pl-4">
           {projects.map((project) => (
             <li key={project}>
-              <a
+              <Link
+                to={`/home/${encodeURIComponent(project)}`}
+                onClick={() => {
+                  setSelectedProject(project);
+                  localStorage.setItem("projectId", project);
+                }}
                 className={`block px-4 py-2 rounded-lg ${
                   selectedProject === project ? "bg-ocean text-white" : ""
                 }`}
-                onClick={() => {
-                  setSelectedProject(project);
-                  navigate(`/home/${encodeURIComponent(project)}`);
-                }}
               >
                 {project}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
