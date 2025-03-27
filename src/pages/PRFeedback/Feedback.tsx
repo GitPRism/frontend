@@ -2,7 +2,7 @@ import FeedbackSection from "./FeedbackSection";
 
 function Feedback() {
   return (
-    <div className="w-md h-[calc(100vh-110px)] overflow-y-auto border-2 border-[#404040] rounded-lg p-6">
+    <div className="h-[calc(100vh-110px)] overflow-y-auto border-2 border-[#404040] rounded-lg p-6">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <FeedbackSection
