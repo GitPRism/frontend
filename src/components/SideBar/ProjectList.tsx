@@ -39,7 +39,7 @@ function ProjectList() {
                 }`}
                 onClick={() => {
                   setSelectedProject(project);
-                  navigate(`/projects/${encodeURIComponent(project)}`);
+                  navigate(`/home/${encodeURIComponent(project)}`);
                 }}
               >
                 {project}
