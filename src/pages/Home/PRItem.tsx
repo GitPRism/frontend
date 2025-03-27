@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 interface PRItemProps {
   title: string;
   tags: string[];
@@ -10,8 +12,13 @@ interface PRItemProps {
 }
 
 function PRItem({ title, tags, assignee, comments, date }: PRItemProps) {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex items-center justify-between p-4 bg-gray-800 rounded-lg hover:bg-gray-700 cursor-pointer">
+    <div
+      onClick={() => navigate(`/prfeedback/${encodeURIComponent(title)}`)}
+      className="flex items-center justify-between p-4 bg-gray-800 rounded-lg hover:bg-gray-700 cursor-pointer"
+    >
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-semibold text-white">{title}</h3>
         <div className="flex gap-2">
