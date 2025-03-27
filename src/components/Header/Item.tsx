@@ -23,7 +23,7 @@ function Item() {
             ? "border-royal"
             : "border-transparent"
         }`}
-        onClick={() => navigate("/projectevaluation")}
+        onClick={() => navigate(`/projectevaluation/${projectId}`)}
       >
         <span>프로젝트 종합 평가</span>
       </li>

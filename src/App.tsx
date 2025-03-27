@@ -15,7 +15,10 @@ function App() {
         <Route element={<HeaderLayout />}>
           <Route path="/home/:projectId" element={<Home />} />
           <Route path="/prfeedback/:prTitle" element={<PRFeedback />} />
-          <Route path="/projectevaluation" element={<ProjectEvaluation />} />
+          <Route
+            path="/projectevaluation/:projectId"
+            element={<ProjectEvaluation />}
+          />
         </Route>
         <Route path="/portfolio" element={<Portfolio />} />
       </Route>
