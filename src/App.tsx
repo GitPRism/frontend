@@ -14,7 +14,7 @@ function App() {
       <Route path="/" element={<SidebarLayout />}>
         <Route element={<HeaderLayout />}>
           <Route path="/home/:projectId" element={<Home />} />
-          <Route path="/prfeedback" element={<PRFeedback />} />
+          <Route path="/prfeedback/:prTitle" element={<PRFeedback />} />
           <Route path="/projectevaluation" element={<ProjectEvaluation />} />
         </Route>
         <Route path="/portfolio" element={<Portfolio />} />
