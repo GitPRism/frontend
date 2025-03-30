@@ -6,11 +6,13 @@ import ProjectEvaluation from "@/pages/ProjectEvaluation";
 import Portfolio from "@/pages/Portfolio";
 import HeaderLayout from "@/layout/HeaderLayout";
 import SidebarLayout from "@/layout/SidebarLayout";
+import GithubCallback from "@/pages/GithubCallback";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Onboarding />} />
+      <Route path="/githubcallback" element={<GithubCallback />} />
       <Route path="/" element={<SidebarLayout />}>
         <Route element={<HeaderLayout />}>
           <Route path="/home/:projectId" element={<Home />} />
