@@ -1,20 +1,28 @@
 import { useNavigate } from "react-router-dom";
 import { useSidebarStore } from "@/store/useSidebarStore";
 import { useInitialProject } from "@/hooks/useInitialProject";
+import getOAuthUrl from "@/services/Auth/oAuthUrl";
+
 function Button() {
   const navigate = useNavigate();
   const { setSelectedCategory, selectedProject } = useSidebarStore();
   useInitialProject(); // 첫 번째 프로젝트 자동 선택
 
   // 임시로 홈으로 이동하게 해둠. 로그인 로직 구현 필요
-  const handleClick = () => {
-    setSelectedCategory("프로젝트");
-    navigate(`/home/${encodeURIComponent(selectedProject || "")}`);
+  // const handleClick = () => {
+  //   setSelectedCategory("프로젝트");
+  //   navigate(`/home/${encodeURIComponent(selectedProject || "")}`);
+  // };
+
+  const handleOAuthClick = async () => {
+    const oauthUrl = await getOAuthUrl();
+    console.log(oauthUrl);
+    window.open(oauthUrl, "_blank");
   };
 
   return (
     <button
-      onClick={handleClick}
+      onClick={handleOAuthClick}
       className="btn bg-shadow text-white border-black gap-2 px-4 py-2 rounded-lg"
     >
       <svg
