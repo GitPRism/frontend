@@ -1,6 +1,7 @@
 import { useInitialProject } from "@/hooks/useInitialProject";
 import { useSidebarStore } from "@/store/useSidebarStore";
 import { Link, useNavigate } from "react-router-dom";
+import { projectList } from "@/mocks/projectList";
 
 function ProjectList() {
   const {
@@ -14,7 +15,7 @@ function ProjectList() {
 
   useInitialProject();
 
-  const projects = ["프로젝트 1", "프로젝트 2", "프로젝트 3"];
+  const projects = projectList.map((project) => project.data.repo_name);
 
   return (
     <li>

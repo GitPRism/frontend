@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useSidebarStore } from "@/store/useSidebarStore";
+import { projectList } from "@/mocks/projectList";
 
-const PROJECTS = ["프로젝트 1", "프로젝트 2", "프로젝트 3"]; // 상수로 이동
+const PROJECTS = projectList.map((project) => project.data.repo_name); // 상수로 이동
 
 export function useInitialProject() {
   const { selectedCategory, selectedProject, setSelectedProject } =

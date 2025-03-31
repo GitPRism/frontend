@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 interface PRItemProps {
+  id: number;
   title: string;
   tags: string[];
   assignee: {
@@ -8,20 +9,29 @@ interface PRItemProps {
     name: string;
   };
   comments: number;
-  date: string;
+  merged_at: string;
 }
 
-function PRItem({ title, tags, assignee, comments, date }: PRItemProps) {
+function PRItem({
+  id,
+  title,
+  tags,
+  assignee,
+  comments,
+  merged_at,
+}: PRItemProps) {
   const navigate = useNavigate();
 
   return (
     <div
-      onClick={() => navigate(`/prfeedback/${encodeURIComponent(title)}`)}
+      onClick={() => navigate(`/prfeedback/${id}`)}
       className="flex items-center justify-between p-4 bg-gray-800 rounded-lg hover:bg-gray-700 cursor-pointer"
     >
       <div className="flex flex-col gap-2">
-        <h3 className="text-lg font-semibold text-white">{title}</h3>
-        <div className="flex gap-2">
+        <h3 className="text-lg font-semibold text-white">
+          <span className="text-royal">[{id}] </span> {title}
+        </h3>
+        {/* <div className="flex gap-2">
           {tags.map((tag, index) => (
             <span
               key={index}
@@ -32,18 +42,18 @@ function PRItem({ title, tags, assignee, comments, date }: PRItemProps) {
               {tag}
             </span>
           ))}
-        </div>
+        </div> */}
       </div>
 
       <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <img
             className="w-8 h-8 rounded-full"
             src={assignee.image}
             alt={assignee.name}
           />
           <span className="text-gray-300">{assignee.name}</span>
-        </div>
+        </div> */}
         <div className="flex items-center gap-2 text-gray-300">
           <svg
             className="w-5 h-5"
@@ -60,7 +70,7 @@ function PRItem({ title, tags, assignee, comments, date }: PRItemProps) {
           </svg>
           <span>{comments}</span>
         </div>
-        <span className="text-gray-300">{date}</span>
+        <span className="text-gray-300">{merged_at}</span>
       </div>
     </div>
   );

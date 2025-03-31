@@ -1,12 +1,19 @@
 import PRDetail from "./PRDetail";
 import Feedback from "./Feedback";
+import { useLocation } from "react-router-dom";
+import { feedback } from "@/mocks/feedback";
 
 function PRFeedback() {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const feedbackData = feedback[id as keyof typeof feedback];
+  console.log(feedbackData);
+
   return (
     <div className="p-4">
-      <div className="flex items-center gap-2 min-w-full">
-        <div className="flex-1">
-          <PRDetail />
+      <div className="flex items-center gap-2 min-w-full ">
+        <div className="flex-1 min-w-0 overflow-auto">
+          <PRDetail pr={feedbackData} />
         </div>
         <div className="flex-shrink-0">
           <svg
@@ -24,8 +31,8 @@ function PRFeedback() {
             />
           </svg>
         </div>
-        <div className="flex-1">
-          <Feedback />
+        <div className="flex-1 min-w-0 overflow-auto">
+          <Feedback pr={feedbackData} />
         </div>
       </div>
     </div>
