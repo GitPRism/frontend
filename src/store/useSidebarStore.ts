@@ -7,7 +7,7 @@ interface SidebarState {
   setSelectedProject: (project: string | null) => void;
 }
 
-// Zustand Store 생성
+// 사이드바 상태 관리
 export const useSidebarStore = create<SidebarState>((set) => ({
   selectedCategory: "프로젝트",
   selectedProject: null,

@@ -3,6 +3,7 @@ import { useSidebarStore } from "@/store/useSidebarStore";
 
 const PROJECTS = ["프로젝트 1", "프로젝트 2", "프로젝트 3"]; // 상수로 이동
 
+// 초기 프로젝트 선택
 export function useInitialProject() {
   const { selectedCategory, selectedProject, setSelectedProject } =
     useSidebarStore();
