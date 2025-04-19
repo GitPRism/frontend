@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 
 function PageLink() {
   return (
-    <ul>
+    <ul className="flex flex-col gap-1">
       <li>
-        <Link to="/home">Sidebar Item 1</Link>
+        <Link to="/home">홈</Link>
       </li>
       <li>
         <Link to="">내 포트폴리오</Link>
