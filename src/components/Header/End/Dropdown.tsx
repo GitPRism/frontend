@@ -1,5 +1,3 @@
-import Item from "./Item";
-
 function Dropdown() {
   return (
     <div className="dropdown">
