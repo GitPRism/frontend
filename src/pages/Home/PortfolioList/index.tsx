@@ -3,7 +3,7 @@ import Card from "./Card";
 type Portfolio = {
   id: number;
   title: string;
-  badgeRank: number;
+  badgeRank?: number;
   imageUrl: string;
   avatarUrl: string;
   description: string;
