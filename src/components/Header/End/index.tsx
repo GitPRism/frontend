@@ -1,6 +1,6 @@
 import Button from "@/components/common/Button";
 import Notification from "./Notification";
-import Avatar from "./Avatar";
+import Profile from "./Profile";
 
 function End() {
   {
@@ -12,7 +12,7 @@ function End() {
         포트폴리오 생성
       </Button>
       <Notification />
-      <Avatar />
+      <Profile />
       {/* <Dropdown /> */}
     </div>
   );

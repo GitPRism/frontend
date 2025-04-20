@@ -1,10 +1,10 @@
-type ButtonProps = {
+interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit";
   bgColor?: "section-bg";
   textColor?: "white" | "button-text";
-};
+}
 
 function Button({
   children,
