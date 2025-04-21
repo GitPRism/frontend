@@ -39,7 +39,7 @@ function Card({
           <Avatar src={avatarUrl} />
           <div className="flex-1 min-w-0">
             <p className="w-5/6 text-base truncate">{description}</p>
-            <p className="text-sm text-text-sub truncate">{meta}</p>
+            <p className="text-sm text-home-text-sub truncate">{meta}</p>
           </div>
           <div className="text-right text-sm">
             <div>북마크 {bookmarkCount ?? 0}</div>
