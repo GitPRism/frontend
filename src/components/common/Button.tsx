@@ -2,8 +2,9 @@ interface ButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   type?: "button" | "submit";
-  bgColor?: "section-bg";
+  bgColor?: string;
   textColor?: "white" | "button-text";
+  rounded?: string;
 }
 
 function Button({
@@ -12,12 +13,13 @@ function Button({
   type = "button",
   bgColor = "section-bg",
   textColor = "white",
+  rounded = "",
 }: ButtonProps) {
   return (
     <button
       onClick={onClick}
       type={type}
-      className={`btn bg-${bgColor} text-${textColor} `}
+      className={`btn ${bgColor} text-${textColor} ${rounded} `}
     >
       {children}
     </button>
