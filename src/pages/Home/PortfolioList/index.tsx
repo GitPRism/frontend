@@ -20,7 +20,7 @@ interface PortfolioListProps {
 
 function PortfolioList({ title, data }: PortfolioListProps) {
   return (
-    <section className="p-4">
+    <section>
       <h1 className="text-xl">{title}</h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 max-w-screen-xl mx-auto bg-section-bg rounded-lg">
         {data.map((item) => (
