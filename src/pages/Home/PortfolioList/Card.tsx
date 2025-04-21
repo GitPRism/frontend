@@ -22,7 +22,7 @@ function Card({
   likeCount,
 }: CardProps) {
   return (
-    <div className="card bg-base-100 w-full shadow-sm">
+    <div className="card  w-full shadow-sm">
       <figure className="aspect-[16/9] overflow-hidden">
         <img src={imageUrl} alt={title} />
       </figure>

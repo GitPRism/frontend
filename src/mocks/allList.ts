@@ -3,7 +3,7 @@ export const allList = [
     id: 4,
     title: "개인 블로그 개발기",
     imageUrl:
-      "https://img.daisyui.com/images/stock/photo-1562059390-a761a084768e.webp",
+      "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     avatarUrl:
       "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     description: "Next.js + Markdown 기반 개인 블로그입니다.",
@@ -15,7 +15,7 @@ export const allList = [
     id: 5,
     title: "쇼핑몰 클론코딩",
     imageUrl:
-      "https://img.daisyui.com/images/stock/photo-1584697964154-8401a4d1085b.webp",
+      "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     avatarUrl:
       "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     description: "React로 구현한 쿠팡 클론 사이트입니다.",
@@ -27,7 +27,7 @@ export const allList = [
     id: 6,
     title: "투두 앱 제작기",
     imageUrl:
-      "https://img.daisyui.com/images/stock/photo-1567306226416-28f0efdc88ce.webp",
+      "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     avatarUrl:
       "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     description: "간단한 CRUD 기능이 포함된 투두앱입니다.",

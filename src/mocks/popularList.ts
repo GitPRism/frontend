@@ -17,7 +17,7 @@ export const popularList = [
     title: "UX 개선 프로젝트",
     badgeRank: 2,
     imageUrl:
-      "https://img.daisyui.com/images/stock/photo-1578781618502-1cbcb066e38d.webp",
+      "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     avatarUrl:
       "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     description: "사용자 피드백 기반 UX 개선 포트폴리오입니다.",
@@ -30,7 +30,7 @@ export const popularList = [
     title: "모션 기반 웹사이트",
     badgeRank: 3,
     imageUrl:
-      "https://img.daisyui.com/images/stock/photo-1581320543211-70c3c7d59c7d.webp",
+      "https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp",
     avatarUrl:
       "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp",
     description: "Framer Motion을 활용한 인터랙티브 페이지 구현",
