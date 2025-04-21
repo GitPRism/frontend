@@ -1,13 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-import Onboarding from "@/pages/Onboarding";
-import Home from "@/pages/Home";
-import PRFeedback from "@/pages/PRFeedback";
-import ProjectEvaluation from "@/pages/ProjectEvaluation";
-import MyPortfolio from "@/pages/MyPortfolio";
 import HeaderLayout from "@/layout/HeaderLayout";
 import SidebarLayout from "@/layout/SidebarLayout";
 import MainContentLayout from "./layout/MainContentLayout";
+import Onboarding from "@/pages/Onboarding";
 import GithubCallback from "@/pages/GithubCallback";
+import Home from "@/pages/Home";
+import MyPortfolio from "@/pages/MyPortfolio";
+import MyBookmark from "@/pages/MyBookmark";
+import MyActivity from "@/pages/MyActivity";
+import Detail from "./pages/Detail";
+import PortfolioEditor from "@/pages/PortfolioEditor";
 
 function App() {
   return (
@@ -19,13 +21,12 @@ function App() {
           <Route element={<MainContentLayout />}>
             <Route path="/home" element={<Home />} />
             <Route path="/myportfolio" element={<MyPortfolio />} />
-            <Route path="/prfeedback/:prTitle" element={<PRFeedback />} />
-            <Route
-              path="/projectevaluation/:projectId"
-              element={<ProjectEvaluation />}
-            />
+            <Route path="/mybookmark" element={<MyBookmark />} />
+            <Route path="/myactivity" element={<MyActivity />} />
           </Route>
         </Route>
+        <Route path="detail" element={<Detail />} />
+        <Route path="portfolioedit" element={<PortfolioEditor />} />
       </Route>
     </Routes>
   );
