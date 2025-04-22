@@ -7,13 +7,13 @@ function PageLink() {
         <Link to="/home">홈</Link>
       </li>
       <li>
-        <Link to="">내 포트폴리오</Link>
+        <Link to="/myportfolio">내 포트폴리오</Link>
       </li>
       <li>
-        <Link to="">북마크</Link>
+        <Link to="/mybookmark">북마크</Link>
       </li>
       <li>
-        <Link to="">내 활동</Link>
+        <Link to="/myactivity">내 활동</Link>
       </li>
     </ul>
   );
