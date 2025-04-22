@@ -3,7 +3,7 @@ interface ButtonProps {
   onClick?: () => void;
   type?: "button" | "submit";
   bgColor?: string;
-  textColor?: "white" | "button-text";
+  textColor?: string;
   rounded?: string;
 }
 
@@ -19,7 +19,7 @@ function Button({
     <button
       onClick={onClick}
       type={type}
-      className={`btn ${bgColor} text-${textColor} ${rounded} `}
+      className={`btn ${bgColor} text-${textColor} ${rounded}`}
     >
       {children}
     </button>
