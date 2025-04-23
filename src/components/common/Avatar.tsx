@@ -2,9 +2,15 @@ interface AvatarProps {
   src: string;
   alt?: string;
   clickable?: boolean;
+  width?: string;
 }
 
-function Avatar({ src, alt = "User", clickable = false }: AvatarProps) {
+function Avatar({
+  src,
+  alt = "User",
+  clickable = false,
+  width = "w-10",
+}: AvatarProps) {
   const buttonProps = clickable
     ? {
         tabIndex: 0,
@@ -15,7 +21,7 @@ function Avatar({ src, alt = "User", clickable = false }: AvatarProps) {
 
   return (
     <div {...buttonProps}>
-      <div className="w-10 rounded-full overflow-hidden">
+      <div className={`${width} rounded-full overflow-hidden`}>
         <img src={src} alt={alt} />
       </div>
     </div>
