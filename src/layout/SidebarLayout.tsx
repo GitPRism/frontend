@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 function SidebarLayout() {
   return (
-    <div className="flex">
+    <div className="flex w-full h-full">
       <SideBar />
       <div className="w-full">
         <Outlet />
