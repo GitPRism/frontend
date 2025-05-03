@@ -26,14 +26,15 @@ function GithubCallback() {
           setEmail(res.email);
           setUserId(res.id);
 
-          await getMyRepo()
-            .then((res) => {
-              console.log(`성공: ${res}`);
-            })
-            .catch((err) => {
-              console.log(`실패: ${err}`);
-            });
-          // navigate("/home");
+          // await getMyRepo()
+          //   .then((res) => {
+          //     console.log(`성공: ${res}`);
+          //     navigate("/home");
+          //   })
+          //   .catch((err) => {
+          //     console.log(`실패: ${err}`);
+          //   });
+          navigate("/home");
         })
         .catch((err) => {
           console.error(err);
