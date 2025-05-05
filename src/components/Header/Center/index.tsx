@@ -7,7 +7,7 @@ function Center() {
       <input
         type="text"
         placeholder="Search"
-        className="input input-bordered w-full"
+        className="input input-bordered w-full bg-search-bg"
       />
     </div>
   );

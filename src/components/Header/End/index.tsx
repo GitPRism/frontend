@@ -8,7 +8,7 @@ function End() {
   }
   return (
     <div className="flex items-center gap-3 flex-none px-4">
-      <Button type="button" bgColor="section-bg" textColor="white">
+      <Button type="button" bgColor="bg-button-primary" textColor="white">
         포트폴리오 생성
       </Button>
       <Notification />

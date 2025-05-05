@@ -19,7 +19,7 @@ function Button({
     <button
       onClick={onClick}
       type={type}
-      className={`btn ${bgColor} text-${textColor} ${rounded}`}
+      className={`btn ${bgColor} text-${textColor} ${rounded} border-none`}
     >
       {children}
     </button>

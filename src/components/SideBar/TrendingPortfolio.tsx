@@ -1,7 +1,7 @@
 function TrendingPortfolio() {
   return (
     <div className="py-2 px-1.5 text-center border-1 border-rank-border w-full">
-      <p className="text-base pb-2">실시간 인기 순위</p>
+      <p className="text-base pb-2 text-white">실시간 인기 순위</p>
 
       {/* 리스트 항목 */}
       <div className="flex items-center border-b border-rank-divider p-1 gap-2">
