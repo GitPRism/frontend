@@ -26,7 +26,7 @@ function App() {
           </Route>
         </Route>
         <Route path="detail" element={<Detail />} />
-        <Route path="portfolioedit" element={<PortfolioEditor />} />
+        <Route path="portfolioedit/:repoId" element={<PortfolioEditor />} />
       </Route>
     </Routes>
   );

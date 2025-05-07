@@ -10,9 +10,9 @@ export const useRepos = () => {
     queryFn: getMyRepo,
     staleTime: Infinity,
     gcTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    enabled: true,
+    refetchOnWindowFocus: false, // 탭 다시 올려도 재요청 안 함
+    refetchOnMount: false, // 컴포넌트 다시 떠도 재요청 안 함
+    enabled: true, // 처음 마운트시 api 요청
   });
 
   const handleOpenRepoModal = () => {
