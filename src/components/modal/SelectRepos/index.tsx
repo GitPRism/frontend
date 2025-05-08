@@ -25,6 +25,8 @@ function SelectRepos({ repos }: Props) {
   const handleSubmit = () => {
     const repo = repos.find((r) => r.repoName === selectedRepo);
     if (repo) {
+      const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
+      modal?.close();
       navigate(`portfolioedit/${repo.id}`);
     }
   };

@@ -15,6 +15,7 @@ function Center() {
           console.log(e.target.value);
           setSearchValue(e.target.value);
         }}
+        className="w-full bg-search-bg"
       />
     </div>
   );
