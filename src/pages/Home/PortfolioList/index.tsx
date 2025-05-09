@@ -10,6 +10,9 @@ type Portfolio = {
   meta: string;
   bookmarkCount: number;
   likeCount: number;
+  username: string;
+  updated_at: string;
+  portfolioId: number;
 };
 
 interface PortfolioListProps {
@@ -19,6 +22,7 @@ interface PortfolioListProps {
 }
 
 function PortfolioList({ title, data }: PortfolioListProps) {
+  console.log(data);
   return (
     <section>
       <h1 className="text-xl">{title}</h1>
@@ -27,11 +31,14 @@ function PortfolioList({ title, data }: PortfolioListProps) {
           {data.map((item) => (
             <li key={item.id}>
               <Card
+                portfolioId={item.portfolioId}
                 title={item.title}
                 badgeRank={item.badgeRank}
                 imageUrl={item.imageUrl}
                 avatarUrl={item.avatarUrl}
                 description={item.description}
+                userName={item.username}
+                updatedAt={item.updated_at}
                 meta={item.meta}
                 bookmarkCount={item.bookmarkCount}
                 likeCount={item.likeCount}
