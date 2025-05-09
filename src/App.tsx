@@ -8,7 +8,7 @@ import Home from "@/pages/Home";
 import MyPortfolio from "@/pages/MyPortfolio";
 import MyBookmark from "@/pages/MyBookmark";
 import MyActivity from "@/pages/MyActivity";
-import Detail from "./pages/Detail";
+import Portfolio from "./pages/Portfolio";
 import PortfolioEditor from "@/pages/PortfolioEditor";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
             <Route path="/myactivity" element={<MyActivity />} />
           </Route>
         </Route>
-        <Route path="detail" element={<Detail />} />
+        <Route path="portfolio/:portfolioId" element={<Portfolio />} />
         <Route path="portfolioedit/:repoId" element={<PortfolioEditor />} />
       </Route>
     </Routes>

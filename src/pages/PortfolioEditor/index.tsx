@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import PortfolioTitleForm from "./PortfolioTitleForm";
-import PortfolioContent from "./PortfolioContent";
+import PortfolioContent from "@/components/common/portfolio/PortfolioContent";
 import RegisterBtn from "./RegisterBtn";
 import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
 

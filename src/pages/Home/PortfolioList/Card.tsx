@@ -1,5 +1,5 @@
 import Avatar from "@/components/common/Avatar";
-
+import { useNavigate } from "react-router-dom";
 interface CardProps {
   title: string;
   badgeRank?: number;
@@ -9,20 +9,33 @@ interface CardProps {
   meta: string;
   bookmarkCount?: number;
   likeCount?: number;
+  userName: string;
+  updatedAt: string;
+  portfolioId: number;
 }
 
 function Card({
+  portfolioId,
   title,
   badgeRank,
   imageUrl,
   avatarUrl,
   description,
+  userName,
   meta,
+  updatedAt,
   bookmarkCount,
   likeCount,
 }: CardProps) {
+  const navigate = useNavigate();
   return (
-    <div className="card w-full shadow-sm">
+    <div
+      onClick={() => {
+        console.log(portfolioId);
+        navigate(`/portfolio/${portfolioId}`);
+      }}
+      className="card w-full shadow-sm hover:scale-[1.01] hover:shadow-lg hover:brightness-110 transition duration-200 ease-in-out cursor-pointer"
+    >
       <figure className="aspect-[16/9] overflow-hidden">
         <img src={imageUrl} alt={title} />
       </figure>
@@ -39,7 +52,9 @@ function Card({
           <Avatar src={avatarUrl} />
           <div className="flex-1 min-w-0">
             <p className="w-5/6 text-base truncate">{description}</p>
-            <p className="text-sm text-home-text-sub truncate">{meta}</p>
+            <p className="w-5/6 text-sm text-home-text-sub truncate">
+              {meta ? meta : `${userName} ${updatedAt}`}
+            </p>
           </div>
           <div className="text-right text-sm">
             <div>북마크 {bookmarkCount ?? 0}</div>
