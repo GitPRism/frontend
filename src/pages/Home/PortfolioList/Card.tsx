@@ -1,5 +1,7 @@
 import Avatar from "@/components/common/Avatar";
 import { useNavigate } from "react-router-dom";
+import { Bookmark, HeartPlus, HeartMinus } from "lucide-react";
+
 interface CardProps {
   title: string;
   badgeRank?: number;
@@ -31,7 +33,6 @@ function Card({
   return (
     <div
       onClick={() => {
-        console.log(portfolioId);
         navigate(`/portfolio/${portfolioId}`);
       }}
       className="card w-full shadow-sm hover:scale-[1.01] hover:shadow-lg hover:brightness-110 transition duration-200 ease-in-out cursor-pointer"
@@ -57,8 +58,14 @@ function Card({
             </p>
           </div>
           <div className="text-right text-sm">
-            <div>북마크 {bookmarkCount ?? 0}</div>
-            <div>좋아요 {likeCount ?? 0}</div>
+            <div className="flex items-center gap-1">
+              <Bookmark />
+              {bookmarkCount ?? 0}
+            </div>
+            <div className="flex items-center gap-1">
+              <HeartPlus />
+              {likeCount ?? 0}
+            </div>
           </div>
         </div>
       </div>

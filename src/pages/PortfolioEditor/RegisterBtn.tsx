@@ -1,5 +1,6 @@
 import Button from "@/components/common/Button";
 import { statusToggle } from "@/services/Portfolio/statusToggle";
+import { useQueryClient } from "@tanstack/react-query";
 
 function RegisterBtn({
   repoId,
@@ -8,6 +9,8 @@ function RegisterBtn({
   repoId: string;
   onSuccess: () => void;
 }) {
+  const queryClient = useQueryClient();
+
   return (
     <div className="mt-4 flex justify-center">
       <Button
@@ -18,6 +21,7 @@ function RegisterBtn({
           statusToggle(repoId)
             .then(() => {
               alert("등록되었습니다.");
+              queryClient.invalidateQueries({ queryKey: ["myPortfolio"] });
               onSuccess();
             })
             .catch((error: any) => {
