@@ -34,7 +34,7 @@ function Portfolio() {
       {/* 본문 */}
       <PortfolioContent title={data?.title} description={data?.description} />
       {/* 댓글 섹션 */}
-      <Comment />
+      <Comment portfolioId={portfolioId} />
     </main>
   );
 }
