@@ -9,7 +9,7 @@ import { useLikeController } from "@/services/like/useLikeController";
 
 interface CardProps {
   title: string;
-  badgeRank?: number;
+  badgeRank?: boolean;
   imageUrl: string;
   avatarUrl: string;
   description: string;
@@ -20,9 +20,11 @@ interface CardProps {
   updatedAt: string;
   portfolioId: number;
   bookmarked: boolean;
+  index: number;
 }
 
 function Card({
+  index,
   portfolioId,
   title,
   badgeRank,
@@ -80,7 +82,7 @@ function Card({
           <h2 className="text-lg font-semibold truncate">{title}</h2>
           {badgeRank && (
             <div className="badge badge-secondary text-sm flex-shrink-0">
-              {badgeRank}
+              {index + 1}
             </div>
           )}
         </div>

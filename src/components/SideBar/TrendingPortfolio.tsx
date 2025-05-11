@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import apiClient from "@/services/apiClient";
 import { useNavigate } from "react-router-dom";
+import { getPopularPortfolios } from "@/services/Portfolio/getPopularPortfolios";
 
 function TrendingPortfolio() {
   const navigate = useNavigate();
   const { data, isLoading } = useQuery({
     queryKey: ["trendingPortfolio"],
-    queryFn: () => apiClient.get("/api/v1/portfolios/popular?limit=10"),
+    queryFn: getPopularPortfolios,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
   });
@@ -20,7 +20,7 @@ function TrendingPortfolio() {
 
       {/* 리스트 항목 */}
       <ul>
-        {data?.data.data.map((item: any, idx: number) => (
+        {data?.data.map((item: any, idx: number) => (
           <li
             key={item.portfolioId}
             className="flex items-center border-b border-rank-divider p-1 gap-2 hover:bg-button-bg-second"
