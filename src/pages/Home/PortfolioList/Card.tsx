@@ -48,7 +48,7 @@ function Card({
   });
   const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
     useLikeState({
-      initialIsLiked: false,
+      initialIsLiked: false, // 서버 좋아요 response 여부 추후 추가 예정
       initialLikeCount: likeCount,
     });
 

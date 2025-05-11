@@ -65,6 +65,9 @@ export const useBookmarkController = ({
       queryClient.invalidateQueries({
         queryKey: ["portfolios", "bookmark", portfolioId],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["myBookmark"],
+      });
     },
   });
 

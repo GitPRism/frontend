@@ -50,8 +50,6 @@ function ButtonSection({
     setLocalBookmarkCount,
   });
 
-  console.log(isLocalLiked);
-
   return (
     <div className="flex gap-2 mt-1">
       <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
