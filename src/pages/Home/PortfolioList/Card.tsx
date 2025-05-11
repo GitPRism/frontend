@@ -113,7 +113,7 @@ function Card({
                 like();
               }}
             >
-              <HeartPlus fill={isLocalLiked ? "currentColor" : "none"} />
+              {isLocalLiked ? <HeartMinus /> : <HeartPlus fill="none" />}
               {localLikeCount}
             </div>
           </div>
