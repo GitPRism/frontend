@@ -1,6 +1,4 @@
 import PortfolioList from "./PortfolioList";
-import { popularList } from "@/mocks/popularList";
-import { allList } from "@/mocks/allList";
 
 import { getAllPortfolios } from "@/services/Portfolio/getAllPortfolios";
 import { useQuery } from "@tanstack/react-query";
