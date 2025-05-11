@@ -13,6 +13,7 @@ type Portfolio = {
   username: string;
   updated_at: string;
   portfolioId: number;
+  bookmarked: boolean;
 };
 
 interface PortfolioListProps {
@@ -42,6 +43,7 @@ function PortfolioList({ title, data }: PortfolioListProps) {
                 meta={item.meta}
                 bookmarkCount={item.bookmarkCount}
                 likeCount={item.likeCount}
+                bookmarked={item.bookmarked}
               />
             </li>
           ))}

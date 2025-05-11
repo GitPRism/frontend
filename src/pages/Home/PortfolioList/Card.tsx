@@ -2,6 +2,11 @@ import Avatar from "@/components/common/Avatar";
 import { useNavigate } from "react-router-dom";
 import { Bookmark, HeartPlus, HeartMinus } from "lucide-react";
 
+import { useBookmarkState } from "@/hooks/bookmark/useBookmarkState";
+import { useLikeState } from "@/hooks/like/useLikeState";
+import { useBookmarkController } from "@/services/bookmark/useBookmarkController";
+import { useLikeController } from "@/services/like/useLikeController";
+
 interface CardProps {
   title: string;
   badgeRank?: number;
@@ -14,6 +19,7 @@ interface CardProps {
   userName: string;
   updatedAt: string;
   portfolioId: number;
+  bookmarked: boolean;
 }
 
 function Card({
@@ -26,10 +32,39 @@ function Card({
   userName,
   meta,
   updatedAt,
-  bookmarkCount,
-  likeCount,
+  bookmarked,
+  bookmarkCount = 0,
+  likeCount = 0,
 }: CardProps) {
   const navigate = useNavigate();
+  const {
+    isLocalBookmarked,
+    setIsLocalBookmarked,
+    localBookmarkCount,
+    setLocalBookmarkCount,
+  } = useBookmarkState({
+    initialIsBookmarked: bookmarked,
+    initialBookmarkCount: bookmarkCount,
+  });
+  const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
+    useLikeState({
+      initialIsLiked: false,
+      initialLikeCount: likeCount,
+    });
+
+  const { bookmark } = useBookmarkController({
+    portfolioId,
+    isBookmarked: isLocalBookmarked,
+    setIsBookmarked: setIsLocalBookmarked,
+    setLocalBookmarkCount,
+  });
+  const { like } = useLikeController({
+    portfolioId,
+    isLiked: isLocalLiked,
+    setIsLiked: setIsLocalLiked,
+    setLocalLikeCount,
+  });
+
   return (
     <div
       onClick={() => {
@@ -58,13 +93,26 @@ function Card({
             </p>
           </div>
           <div className="text-right text-sm">
-            <div className="flex items-center gap-1">
-              <Bookmark />
-              {bookmarkCount ?? 0}
+            <div
+              className="flex items-center gap-1"
+              onClick={(e) => {
+                e.stopPropagation();
+                console.log(isLocalBookmarked);
+                bookmark();
+              }}
+            >
+              <Bookmark fill={isLocalBookmarked ? "currentColor" : "none"} />
+              {localBookmarkCount}
             </div>
-            <div className="flex items-center gap-1">
-              <HeartPlus />
-              {likeCount ?? 0}
+            <div
+              className="flex items-center gap-1"
+              onClick={(e) => {
+                e.stopPropagation();
+                like();
+              }}
+            >
+              <HeartPlus fill={isLocalLiked ? "currentColor" : "none"} />
+              {localLikeCount}
             </div>
           </div>
         </div>

@@ -4,6 +4,7 @@ import PortfolioContent from "@/components/common/portfolio/PortfolioContent";
 import Comment from "./Comment";
 import { useQuery } from "@tanstack/react-query";
 import apiClient from "@/services/apiClient";
+import ButtonSection from "./ButtonSection";
 
 function Portfolio() {
   const { portfolioId } = useParams();
@@ -33,8 +34,15 @@ function Portfolio() {
       />
       {/* 본문 */}
       <PortfolioContent title={data?.title} description={data?.description} />
+      <ButtonSection
+        portfolioId={data?.portfolioId}
+        likeCount={data?.likeCount}
+        bookmarkCount={data?.bookmarkCount}
+        isBookmarked={data?.bookmarked}
+        isLiked={data?.liked} // 서버 좋아요 여부 추후 추가 예정
+      />
       {/* 댓글 섹션 */}
-      <Comment portfolioId={portfolioId} />
+      <Comment portfolioId={data?.portfolioId} />
     </main>
   );
 }

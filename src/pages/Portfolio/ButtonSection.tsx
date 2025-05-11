@@ -1,0 +1,81 @@
+import { Download, Heart, Bookmark } from "lucide-react";
+import Button from "@/components/common/Button";
+import { useLikeController } from "@/services/like/useLikeController";
+import { useBookmarkController } from "@/services/bookmark/useBookmarkController";
+
+interface ButtonSectionProps {
+  portfolioId: number;
+  likeCount: number;
+  bookmarkCount: number;
+  isBookmarked: boolean;
+  isLiked: boolean;
+}
+
+import { useLikeState } from "@/hooks/like/useLikeState";
+import { useBookmarkState } from "@/hooks/bookmark/useBookmarkState";
+
+function ButtonSection({
+  portfolioId,
+  likeCount,
+  bookmarkCount,
+  isBookmarked,
+  isLiked, // 서버 좋아요 여부 추후 추가 예정
+}: ButtonSectionProps) {
+  const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
+    useLikeState({
+      initialIsLiked: isLiked,
+      initialLikeCount: likeCount,
+    });
+  const {
+    isLocalBookmarked,
+    setIsLocalBookmarked,
+    localBookmarkCount,
+    setLocalBookmarkCount,
+  } = useBookmarkState({
+    initialIsBookmarked: isBookmarked,
+    initialBookmarkCount: bookmarkCount,
+  });
+
+  const { like } = useLikeController({
+    portfolioId,
+    isLiked: isLocalLiked,
+    setIsLiked: setIsLocalLiked,
+    setLocalLikeCount,
+  });
+
+  const { bookmark } = useBookmarkController({
+    portfolioId,
+    isBookmarked: isLocalBookmarked,
+    setIsBookmarked: setIsLocalBookmarked,
+    setLocalBookmarkCount,
+  });
+
+  console.log(isLocalLiked);
+
+  return (
+    <div className="flex gap-2 mt-1">
+      <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
+        <Download className="size-[1.2em]" />
+        저장
+      </Button>
+      <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
+        <Heart
+          fill={isLocalLiked ? "currentColor" : "none"}
+          className="size-[1.2em]"
+          onClick={() => like()}
+        />{" "}
+        {localLikeCount}
+      </Button>
+      <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
+        <Bookmark
+          fill={isLocalBookmarked ? "currentColor" : "none"}
+          className="size-[1.2em]"
+          onClick={() => bookmark()}
+        />{" "}
+        {localBookmarkCount}
+      </Button>
+    </div>
+  );
+}
+
+export default ButtonSection;

@@ -1,26 +1,64 @@
+import { useNavigate } from "react-router-dom";
 import Button from "@/components/common/Button";
 import { Download, Heart, MessageSquareText, Bookmark } from "lucide-react";
+import { useLikeState } from "@/hooks/like/useLikeState";
+import { useBookmarkState } from "@/hooks/bookmark/useBookmarkState";
+import { useLikeController } from "@/services/like/useLikeController";
+import { useBookmarkController } from "@/services/bookmark/useBookmarkController";
 
 type PortfolioCardProps = {
   portfolio: {
-    id: number;
-    data: {
-      title: string;
-      imageUrl: string;
-      viewCount: number;
-      createdAt: string;
-      likeCount: number;
-      contentCount: number;
-      bookmarkCount: number;
-      status: string;
-    };
+    portfolioId: number;
+    title: string;
+    imageUrl: string;
+    viewCount: number;
+    createdAt: string;
+    likeCount: number;
+    contentCount: number;
+    bookmarkCount: number;
+    status: string;
   };
 };
 
 function PortfolioCard({ portfolio }: PortfolioCardProps) {
-  const data = portfolio.data;
+  const data = portfolio;
+  const navigate = useNavigate();
+  const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
+    useLikeState({
+      initialIsLiked: false,
+      initialLikeCount: data.likeCount,
+    });
+  const {
+    isLocalBookmarked,
+    setIsLocalBookmarked,
+    localBookmarkCount,
+    setLocalBookmarkCount,
+  } = useBookmarkState({
+    initialIsBookmarked: false,
+    initialBookmarkCount: data.bookmarkCount,
+  });
+
+  const { like } = useLikeController({
+    portfolioId: data.portfolioId,
+    isLiked: isLocalLiked,
+    setIsLiked: setIsLocalLiked,
+    setLocalLikeCount,
+  });
+
+  const { bookmark } = useBookmarkController({
+    portfolioId: data.portfolioId,
+    isBookmarked: isLocalBookmarked,
+    setIsBookmarked: setIsLocalBookmarked,
+    setLocalBookmarkCount,
+  });
+
   return (
-    <li className="p-4 flex flex-col justify-between items-start bg-section-bg rounded-xl">
+    <li
+      onClick={() => {
+        navigate(`/portfolio/${data.portfolioId}`);
+      }}
+      className="p-4 flex flex-col justify-between items-start bg-section-bg rounded-xl hover:scale-[1.01] hover:shadow-lg hover:brightness-110 transition duration-200 ease-in-out cursor-pointer"
+    >
       <figure className="aspect-[7/6] overflow-hidden rounded-xl">
         <img
           className="w-full h-full object-cover"
@@ -56,14 +94,36 @@ function PortfolioCard({ portfolio }: PortfolioCardProps) {
             <Download className="size-[1.2em]" />
             저장
           </Button>
-          <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
-            <Heart className="size-[1.2em]" /> {data.likeCount}
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              like();
+            }}
+            rounded="rounded-2xl"
+            bgColor="bg-button-bg-second"
+          >
+            <Heart
+              fill={isLocalLiked ? "currentColor" : "none"}
+              className="size-[1.2em]"
+            />{" "}
+            {localLikeCount}
           </Button>
           <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
             <MessageSquareText className="size-[1.2em]" /> {data.contentCount}
           </Button>
-          <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
-            <Bookmark className="size-[1.2em]" /> {data.bookmarkCount}
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              bookmark();
+            }}
+            rounded="rounded-2xl"
+            bgColor="bg-button-bg-second"
+          >
+            <Bookmark
+              fill={isLocalBookmarked ? "currentColor" : "none"}
+              className="size-[1.2em]"
+            />{" "}
+            {localBookmarkCount}
           </Button>
           {data.status === "published" ? (
             <span className="text-sm text-myportfolio-text-sub">공개</span>
