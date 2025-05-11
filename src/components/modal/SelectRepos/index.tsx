@@ -19,23 +19,34 @@ type Props = {
 };
 
 function SelectRepos({ repos }: Props) {
-  const [selectedRepo, setSelectedRepo] = useState<string>("");
+  const [selectedRepo, setSelectedRepo] = useState<number[]>([]);
   const navigate = useNavigate();
 
   const handleSubmit = () => {
-    const repo = repos.find((r) => r.repoName === selectedRepo);
-    if (repo) {
+    // console.log(selectedRepo);
+    // const repo = repos.find((r) => selectedRepo.includes(r.id));
+    if (selectedRepo) {
+      // console.log(selectedRepo);
+      const repoQuery = selectedRepo.map(encodeURIComponent).join(",");
       const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
       modal?.close();
-      navigate(`portfolioedit/${repo.id}`);
+      navigate(`portfolioedit?repos=${repoQuery}`);
     }
+  };
+
+  const handleSelect = (repoId: number) => {
+    setSelectedRepo((prev) =>
+      prev.includes(repoId)
+        ? prev.filter((id) => id !== repoId)
+        : [...prev, repoId]
+    );
   };
 
   return (
     <RepoModal
       repos={repos}
       selectedRepo={selectedRepo}
-      onSelect={setSelectedRepo}
+      onSelect={handleSelect}
       onSubmit={handleSubmit}
     />
   );

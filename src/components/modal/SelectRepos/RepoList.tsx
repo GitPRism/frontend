@@ -12,8 +12,8 @@ type Repo = {
 
 type Props = {
   repos: Repo[];
-  selectedRepo: string;
-  onSelect: (repoName: string) => void;
+  selectedRepo: number[];
+  onSelect: (repoId: number) => void;
 };
 
 function RepoList({ repos, selectedRepo, onSelect }: Props) {
@@ -23,11 +23,11 @@ function RepoList({ repos, selectedRepo, onSelect }: Props) {
         <label className="flex-1 cursor-pointer" key={idx}>
           <li className="flex items-center space-x-3 p-2 hover:bg-gray-100 rounded-lg">
             <input
-              type="radio"
+              type="checkbox"
               name="repo-select"
-              value={repo.repoName}
-              checked={selectedRepo === repo.repoName}
-              onChange={(e) => onSelect(e.target.value)}
+              value={repo.id}
+              checked={selectedRepo.includes(repo.id)}
+              onChange={(e) => onSelect(Number(e.target.value))}
               className="radio radio-primary"
             />
             <span className="font-medium">{repo.repoName}</span>

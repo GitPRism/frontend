@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import PortfolioTitleForm from "./PortfolioTitleForm";
 import PortfolioContent from "@/components/common/portfolio/PortfolioContent";
 import RegisterBtn from "./RegisterBtn";
 import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
 
 function PortfolioEditor() {
-  const { repoId } = useParams();
-  const { data, isLoading } = usePortfolioData(repoId as string);
+  const [searchParams] = useSearchParams();
+
+  const repoList = searchParams.get("repos")?.split(",") ?? [];
+  console.log(repoList);
+  const { data, isLoading } = usePortfolioData(repoList as string[]);
 
   const navigate = useNavigate();
 
@@ -16,17 +19,26 @@ function PortfolioEditor() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  console.log(data);
   return (
     <div className="max-w-3xl mx-auto text-black mt-6">
       <PortfolioTitleForm title={title} onTitleChange={setTitle} />
 
-      <PortfolioContent
-        title={data?.data.title}
-        description={data?.data.description}
-      />
+      <div className="bg-white">
+        {data?.data.map((portfolio: any) => (
+          <div key={portfolio.id}>
+            <PortfolioContent
+              title={portfolio.title}
+              description={portfolio.description}
+            />
+            <div className="border-b border-gray-200"></div>
+          </div>
+        ))}
+      </div>
 
       <RegisterBtn
-        repoId={repoId as string}
+        repoId={data?.combinedPortfolioId}
         onSuccess={() => navigate("/home")}
       />
     </div>

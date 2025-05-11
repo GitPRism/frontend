@@ -8,7 +8,7 @@ function Title({
   username: string;
 }) {
   return (
-    <header className="mb-6">
+    <header className="mb-2">
       <h1 className="text-2xl font-semibold">{title}</h1>
       <div className="text-sm text-gray-500 mt-1 flex gap-2 items-center">
         <span>{username}</span>

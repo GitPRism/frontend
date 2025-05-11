@@ -23,9 +23,10 @@ function Portfolio() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  console.log(data);
 
   return (
-    <main className="mt-4 max-w-3xl m-auto">
+    <main className="mt-4 max-w-3xl m-auto flex flex-col gap-4">
       {/* 게시글 헤더 */}
       <Title
         title={data?.title}
@@ -33,7 +34,9 @@ function Portfolio() {
         username={data?.username}
       />
       {/* 본문 */}
-      <PortfolioContent title={data?.title} description={data?.description} />
+      <div className="bg-white">
+        <PortfolioContent title={data?.title} description={data?.description} />
+      </div>
       <ButtonSection
         portfolioId={data?.portfolioId}
         likeCount={data?.likeCount}

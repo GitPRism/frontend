@@ -14,8 +14,8 @@ type Repo = {
 
 type Props = {
   repos: Repo[];
-  selectedRepo: string;
-  onSelect: (repoName: string) => void;
+  selectedRepo: number[];
+  onSelect: (repoId: number) => void;
   onSubmit: () => void;
 };
 
@@ -38,7 +38,7 @@ function RepoModal({ repos, selectedRepo, onSelect, onSubmit }: Props) {
           <div className="flex justify-end mt-4">
             <button
               onClick={onSubmit}
-              disabled={!selectedRepo}
+              disabled={selectedRepo.length === 0}
               className="btn btn-primary"
             >
               선택 완료
