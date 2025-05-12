@@ -10,13 +10,15 @@ type PortfolioCardProps = {
   portfolio: {
     portfolioId: number;
     title: string;
-    imageUrl: string;
     viewCount: number;
     createdAt: string;
-    likeCount: number;
     contentCount: number;
-    bookmarkCount: number;
     status: string;
+    repoOrgAvatarUrl: string;
+    liked: boolean;
+    likeCount: number;
+    bookmarked: boolean;
+    bookmarkCount: number;
   };
 };
 
@@ -25,7 +27,7 @@ function PortfolioCard({ portfolio }: PortfolioCardProps) {
   const navigate = useNavigate();
   const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
     useLikeState({
-      initialIsLiked: false,
+      initialIsLiked: data.liked,
       initialLikeCount: data.likeCount,
     });
   const {
@@ -34,7 +36,7 @@ function PortfolioCard({ portfolio }: PortfolioCardProps) {
     localBookmarkCount,
     setLocalBookmarkCount,
   } = useBookmarkState({
-    initialIsBookmarked: false,
+    initialIsBookmarked: data.bookmarked,
     initialBookmarkCount: data.bookmarkCount,
   });
 
@@ -59,10 +61,10 @@ function PortfolioCard({ portfolio }: PortfolioCardProps) {
       }}
       className="p-4 flex flex-col justify-between items-start bg-section-bg rounded-xl hover:scale-[1.01] hover:shadow-lg hover:brightness-110 transition duration-200 ease-in-out cursor-pointer"
     >
-      <figure className="aspect-[7/6] overflow-hidden rounded-xl">
+      <figure className="w-full aspect-[16/9] overflow-hidden rounded-xl mb-3">
         <img
           className="w-full h-full object-cover"
-          src={data.imageUrl}
+          src={data.repoOrgAvatarUrl}
           alt={data.title}
         />
       </figure>

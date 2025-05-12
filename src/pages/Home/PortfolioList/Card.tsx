@@ -10,7 +10,6 @@ import { useLikeController } from "@/services/like/useLikeController";
 interface CardProps {
   title: string;
   badgeRank?: boolean;
-  imageUrl: string;
   avatarUrl: string;
   description: string;
   meta: string;
@@ -21,6 +20,8 @@ interface CardProps {
   portfolioId: number;
   bookmarked: boolean;
   index: number;
+  repoOrgAvatarUrl: string;
+  liked: boolean;
 }
 
 function Card({
@@ -28,15 +29,16 @@ function Card({
   portfolioId,
   title,
   badgeRank,
-  imageUrl,
   avatarUrl,
   description,
   userName,
   meta,
   updatedAt,
   bookmarked,
+  liked,
   bookmarkCount = 0,
   likeCount = 0,
+  repoOrgAvatarUrl,
 }: CardProps) {
   const navigate = useNavigate();
   const {
@@ -50,7 +52,7 @@ function Card({
   });
   const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
     useLikeState({
-      initialIsLiked: false, // 서버 좋아요 response 여부 추후 추가 예정
+      initialIsLiked: liked, // 서버 좋아요 response 여부 추후 추가 예정
       initialLikeCount: likeCount,
     });
 
@@ -75,7 +77,7 @@ function Card({
       className="card w-full shadow-sm hover:scale-[1.01] hover:shadow-lg hover:brightness-110 transition duration-200 ease-in-out cursor-pointer"
     >
       <figure className="aspect-[16/9] overflow-hidden">
-        <img src={imageUrl} alt={title} />
+        <img src={repoOrgAvatarUrl} alt={title} />
       </figure>
       <div className="card-body p-4">
         <div className="flex items-center justify-between gap-2">

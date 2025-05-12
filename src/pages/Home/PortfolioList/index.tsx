@@ -4,7 +4,6 @@ type Portfolio = {
   id: number;
   title: string;
   badgeRank?: number;
-  imageUrl: string;
   avatarUrl: string;
   description: string;
   meta: string;
@@ -15,6 +14,8 @@ type Portfolio = {
   updated_at: string;
   portfolioId: number;
   bookmarked: boolean;
+  repoOrgAvatarUrl: string;
+  liked: boolean;
 };
 
 interface PortfolioListProps {
@@ -29,7 +30,7 @@ function PortfolioList({ title, data, showRank }: PortfolioListProps) {
     <section>
       <h1 className="text-xl">{title}</h1>
       <div className="p-2">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 max-w-screen-xl mx-auto bg-section-bg rounded-lg">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4 mx-auto bg-section-bg rounded-lg">
           {data.map((item, index) => (
             <li key={item.id}>
               <Card
@@ -37,8 +38,8 @@ function PortfolioList({ title, data, showRank }: PortfolioListProps) {
                 portfolioId={item.portfolioId}
                 title={item.title}
                 badgeRank={showRank}
-                imageUrl={item.imageUrl}
                 avatarUrl={item.avatarUrl}
+                repoOrgAvatarUrl={item.repoOrgAvatarUrl}
                 description={item.description}
                 userName={item.username || item.author}
                 updatedAt={item.updated_at}
@@ -46,6 +47,7 @@ function PortfolioList({ title, data, showRank }: PortfolioListProps) {
                 bookmarkCount={item.bookmarkCount}
                 likeCount={item.likeCount}
                 bookmarked={item.bookmarked}
+                liked={item.liked}
               />
             </li>
           ))}
