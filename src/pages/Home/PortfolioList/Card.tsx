@@ -1,6 +1,7 @@
 import Avatar from "@/components/common/Avatar";
 import { useNavigate } from "react-router-dom";
 import { Bookmark, HeartPlus, HeartMinus } from "lucide-react";
+import { useEffect } from "react";
 
 import { useBookmarkState } from "@/hooks/bookmark/useBookmarkState";
 import { useLikeState } from "@/hooks/like/useLikeState";
@@ -68,6 +69,12 @@ function Card({
     setIsLiked: setIsLocalLiked,
     setLocalLikeCount,
   });
+
+  // bookmarked prop이 변경될 때마다 로컬 상태 업데이트
+  useEffect(() => {
+    setIsLocalBookmarked(bookmarked);
+    setLocalBookmarkCount(bookmarkCount);
+  }, [bookmarked, bookmarkCount, setIsLocalBookmarked, setLocalBookmarkCount]);
 
   return (
     <div

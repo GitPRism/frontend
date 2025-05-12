@@ -69,6 +69,9 @@ export const useBookmarkController = ({
         queryKey: ["portfolios"],
       });
       queryClient.invalidateQueries({
+        queryKey: ["popularPortfolios"],
+      });
+      queryClient.invalidateQueries({
         queryKey: ["myBookmark"],
       });
     },
