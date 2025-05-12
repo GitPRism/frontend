@@ -6,7 +6,8 @@ function MyBookmark() {
   const { data, isLoading } = useQuery({
     queryKey: ["myBookmark"],
     queryFn: () => apiClient.get("/api/v1/portfolios/bookmarks/me"),
-    refetchOnMount: false,
+    staleTime: 0,
+    refetchOnMount: true,
     refetchOnWindowFocus: false,
   });
 

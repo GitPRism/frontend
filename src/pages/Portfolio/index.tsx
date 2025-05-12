@@ -17,8 +17,8 @@ function Portfolio() {
       return response.data;
     },
     enabled: !!portfolioId, // 포트폴리오 아이디가 없으면 데이터를 가져오지 않음
-    staleTime: 1000 * 60 * 10, // 10분 동안 데이터를 가져오지 않음
-    gcTime: 1000 * 60 * 10, // 10분 동안 데이터를 가져오지 않음
+    staleTime: Infinity,
+    gcTime: Infinity,
   });
   if (isLoading) {
     return <div>Loading...</div>;

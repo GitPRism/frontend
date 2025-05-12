@@ -1,4 +1,4 @@
-import { Download, Heart, Bookmark } from "lucide-react";
+import { Download, HeartPlus, HeartMinus, Bookmark } from "lucide-react";
 import Button from "@/components/common/Button";
 import { useLikeController } from "@/services/like/useLikeController";
 import { useBookmarkController } from "@/services/bookmark/useBookmarkController";
@@ -23,9 +23,10 @@ function ButtonSection({
 }: ButtonSectionProps) {
   const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
     useLikeState({
-      initialIsLiked: isLiked,
+      initialIsLiked: !isLiked, // 이 좋아요 값만 반대로 되어있음
       initialLikeCount: likeCount,
     });
+
   const {
     isLocalBookmarked,
     setIsLocalBookmarked,
@@ -56,19 +57,32 @@ function ButtonSection({
         <Download className="size-[1.2em]" />
         저장
       </Button>
-      <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
-        <Heart
-          fill={isLocalLiked ? "currentColor" : "none"}
-          className="size-[1.2em]"
-          onClick={() => like()}
-        />{" "}
+      <Button
+        onClick={() => {
+          console.log("좋아요 버튼 클릭");
+          like();
+        }}
+        rounded="rounded-2xl"
+        bgColor="bg-button-bg-second"
+      >
+        {isLocalLiked ? (
+          <HeartMinus className="size-[1.2em]" />
+        ) : (
+          <HeartPlus className="size-[1.2em]" />
+        )}
         {localLikeCount}
       </Button>
-      <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
+      <Button
+        onClick={() => {
+          console.log("북마크 버튼 클릭");
+          bookmark();
+        }}
+        rounded="rounded-2xl"
+        bgColor="bg-button-bg-second"
+      >
         <Bookmark
           fill={isLocalBookmarked ? "currentColor" : "none"}
           className="size-[1.2em]"
-          onClick={() => bookmark()}
         />{" "}
         {localBookmarkCount}
       </Button>
