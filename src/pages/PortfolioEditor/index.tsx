@@ -4,6 +4,7 @@ import PortfolioTitleForm from "./PortfolioTitleForm";
 import PortfolioContent from "@/components/common/portfolio/PortfolioContent";
 import RegisterBtn from "./RegisterBtn";
 import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
+import { GridLoader } from "react-spinners";
 
 function PortfolioEditor() {
   const [searchParams] = useSearchParams();
@@ -17,7 +18,12 @@ function PortfolioEditor() {
   const [title, setTitle] = useState("");
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col gap-4 justify-center items-center h-screen">
+        <GridLoader color="white" size={35} />
+        <div className="text-2xl font-bold">깃허브 레포를 분석하고 있어요</div>
+      </div>
+    );
   }
 
   console.log(data);
