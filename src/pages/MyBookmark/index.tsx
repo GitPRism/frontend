@@ -1,42 +1,25 @@
-import Avatar from "@/components/common/Avatar";
+import apiClient from "@/services/apiClient";
+import { useQuery } from "@tanstack/react-query";
 import BookmarkList from "./BookmarkList";
-import { myBookmark } from "@/mocks/myBookmark";
 
 function MyBookmark() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["myBookmark"],
+    queryFn: () => apiClient.get("/api/v1/portfolios/bookmarks/me"),
+    staleTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: false,
+  });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  console.log(data);
+
   return (
     <>
-      <BookmarkList
-        title="북마크"
-        items={myBookmark}
-        renderItem={(item) => (
-          <li
-            key={item.id}
-            className="flex items-center gap-3 rounded-xl p-4 hover:bg-section-bg"
-          >
-            <img
-              src={item.thumbnail}
-              alt="썸네일"
-              className="w-44 h-24 object-cover rounded-lg"
-            />
-            <div className="w-full flex justify-between itmes-center gap-1">
-              <div className="flex flex-col gap-2">
-                <p className="text-md font-medium">{item.title}</p>
-                <div className="flex items-center gap-4">
-                  <Avatar src={item.avatar} width="w-8" />
-                  <span className="text-sm text-myportfolio-text-sub">
-                    Uropa · 15회 · 18시간 전
-                  </span>
-                </div>
-              </div>
-              <div className="text-sm text-gray-500 flex gap-2">
-                <span>❤️ {item.likes}</span>
-                <span>💬 {item.comments}</span>
-                <span>🔖 {item.bookmarks}</span>
-              </div>
-            </div>
-          </li>
-        )}
-      />
+      <BookmarkList title="북마크" items={data?.data.bookmarks} />
     </>
   );
 }

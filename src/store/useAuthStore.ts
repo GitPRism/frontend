@@ -7,11 +7,13 @@ interface AuthState {
   username: string | null;
   email: string | null;
   userId: string | null;
+  avatarUrl: string;
   setToken: (token: string) => void;
   setGithubId: (githubId: string) => void;
   setUsername: (username: string) => void;
   setEmail: (email: string) => void;
   setUserId: (userId: string) => void;
+  setAvatarUrl: (avatarUrl: string) => void;
   logout: () => void;
 }
 
@@ -24,11 +26,13 @@ export const useAuthStore = create(
       username: "",
       email: "",
       userId: "",
+      avatarUrl: "",
       setToken: (token: string) => set({ token }),
       setGithubId: (githubId: string) => set({ githubId }),
       setUsername: (username: string) => set({ username }),
       setEmail: (email: string) => set({ email }),
       setUserId: (userId: string) => set({ userId }),
+      setAvatarUrl: (avatarUrl: string) => set({ avatarUrl }),
       logout: () => {
         set({
           token: "",
@@ -36,6 +40,7 @@ export const useAuthStore = create(
           username: "",
           email: "",
           userId: "",
+          avatarUrl: "",
         });
         window.location.href = "/";
       },

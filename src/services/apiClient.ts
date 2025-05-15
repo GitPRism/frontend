@@ -13,7 +13,6 @@ apiClient.interceptors.request.use(
   (config) => {
     // 로그인 형식에 맞춰 토큰 가져오는 방법 수정 필요
     const token = useAuthStore.getState().token;
-    console.log(`token: ${token}`);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

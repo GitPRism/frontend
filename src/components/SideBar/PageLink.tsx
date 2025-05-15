@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function PageLink() {
   return (
-    <ul className="flex flex-col gap-1">
+    <ul className="flex flex-col gap-1 text-white">
       <li>
         <Link to="/home">홈</Link>
       </li>

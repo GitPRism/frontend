@@ -1,6 +1,6 @@
 interface ButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   type?: "button" | "submit";
   bgColor?: string;
   textColor?: string;
@@ -19,7 +19,7 @@ function Button({
     <button
       onClick={onClick}
       type={type}
-      className={`btn ${bgColor} text-${textColor} ${rounded}`}
+      className={`btn ${bgColor} text-${textColor} ${rounded} border-none`}
     >
       {children}
     </button>

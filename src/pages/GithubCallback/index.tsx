@@ -7,8 +7,14 @@ import { getMyRepo } from "@/services/Repo/myRepo";
 function GithubCallback() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { setToken, setGithubId, setUsername, setEmail, setUserId } =
-    useAuthStore();
+  const {
+    setToken,
+    setGithubId,
+    setUsername,
+    setEmail,
+    setUserId,
+    setAvatarUrl,
+  } = useAuthStore();
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
@@ -25,15 +31,16 @@ function GithubCallback() {
           setUsername(res.username);
           setEmail(res.email);
           setUserId(res.id);
-
-          await getMyRepo()
-            .then((res) => {
-              console.log(`성공: ${res}`);
-            })
-            .catch((err) => {
-              console.log(`실패: ${err}`);
-            });
-          // navigate("/home");
+          setAvatarUrl(res.avatarUrl);
+          // await getMyRepo()
+          //   .then((res) => {
+          //     console.log(`성공: ${res}`);
+          //     navigate("/home");
+          //   })
+          //   .catch((err) => {
+          //     console.log(`실패: ${err}`);
+          //   });
+          navigate("/home");
         })
         .catch((err) => {
           console.error(err);

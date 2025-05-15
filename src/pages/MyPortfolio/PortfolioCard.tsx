@@ -1,36 +1,76 @@
+import { useNavigate } from "react-router-dom";
 import Button from "@/components/common/Button";
+import { Download, Heart, MessageSquareText, Bookmark } from "lucide-react";
+import { useLikeState } from "@/hooks/like/useLikeState";
+import { useBookmarkState } from "@/hooks/bookmark/useBookmarkState";
+import { useLikeController } from "@/services/like/useLikeController";
+import { useBookmarkController } from "@/services/bookmark/useBookmarkController";
 
 type PortfolioCardProps = {
-  title: string;
-  imageUrl: string;
-  viewCount: number;
-  date: string;
-  likes: number;
-  comments: number;
-  bookmarks: number;
+  portfolio: {
+    portfolioId: number;
+    title: string;
+    viewCount: number;
+    createdAt: string;
+    contentCount: number;
+    status: string;
+    repoOrgAvatarUrl: string;
+    liked: boolean;
+    likeCount: number;
+    bookmarked: boolean;
+    bookmarkCount: number;
+  };
 };
 
-function PortfolioCard({
-  title,
-  imageUrl,
-  viewCount,
-  date,
-  likes,
-  comments,
-  bookmarks,
-}: PortfolioCardProps) {
+function PortfolioCard({ portfolio }: PortfolioCardProps) {
+  const data = portfolio;
+  const navigate = useNavigate();
+  const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
+    useLikeState({
+      initialIsLiked: data.liked,
+      initialLikeCount: data.likeCount,
+    });
+  const {
+    isLocalBookmarked,
+    setIsLocalBookmarked,
+    localBookmarkCount,
+    setLocalBookmarkCount,
+  } = useBookmarkState({
+    initialIsBookmarked: data.bookmarked,
+    initialBookmarkCount: data.bookmarkCount,
+  });
+
+  const { like } = useLikeController({
+    portfolioId: data.portfolioId,
+    isLiked: isLocalLiked,
+    setIsLiked: setIsLocalLiked,
+    setLocalLikeCount,
+  });
+
+  const { bookmark } = useBookmarkController({
+    portfolioId: data.portfolioId,
+    isBookmarked: isLocalBookmarked,
+    setIsBookmarked: setIsLocalBookmarked,
+    setLocalBookmarkCount,
+  });
+
   return (
-    <li className="p-4 flex flex-col justify-between items-start bg-section-bg rounded-xl">
-      <figure className="aspect-[7/6] overflow-hidden rounded-xl">
+    <li
+      onClick={() => {
+        navigate(`/portfolio/${data.portfolioId}`);
+      }}
+      className="p-4 flex flex-col justify-between items-start bg-section-bg rounded-xl hover:scale-[1.01] hover:shadow-lg hover:brightness-110 transition duration-200 ease-in-out cursor-pointer"
+    >
+      <figure className="w-full aspect-[16/9] overflow-hidden rounded-xl mb-3">
         <img
           className="w-full h-full object-cover"
-          src={imageUrl}
-          alt={title}
+          src={data.repoOrgAvatarUrl}
+          alt={data.title}
         />
       </figure>
       <div className="w-full p-1 mt-2 flex flex-col gap-1">
         <div className="flex justify-between">
-          <p className="text-lg">{title}</p>
+          <p className="text-lg">{data.title}</p>
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn m-1 h-full">
               메뉴 버튼
@@ -49,35 +89,49 @@ function PortfolioCard({
           </div>
         </div>
         <p className="text-sm text-myportfolio-text-sub">
-          {viewCount}회 · {date}
+          {data.viewCount}회 · {data.createdAt}
         </p>
         <div className="flex gap-2 mt-1">
           <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2.5"
-              stroke="currentColor"
-              className="size-[1.2em]"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
-              />
-            </svg>
+            <Download className="size-[1.2em]" />
             저장
           </Button>
-          <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
-            좋아요 {likes}
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              like();
+            }}
+            rounded="rounded-2xl"
+            bgColor="bg-button-bg-second"
+          >
+            <Heart
+              fill={isLocalLiked ? "currentColor" : "none"}
+              className="size-[1.2em]"
+            />{" "}
+            {localLikeCount}
           </Button>
           <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
-            댓글 {comments}
+            <MessageSquareText className="size-[1.2em]" /> {data.contentCount}
           </Button>
-          <Button rounded="rounded-2xl" bgColor="bg-button-bg-second">
-            북마크 {bookmarks}
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              bookmark();
+            }}
+            rounded="rounded-2xl"
+            bgColor="bg-button-bg-second"
+          >
+            <Bookmark
+              fill={isLocalBookmarked ? "currentColor" : "none"}
+              className="size-[1.2em]"
+            />{" "}
+            {localBookmarkCount}
           </Button>
+          {data.status === "published" ? (
+            <span className="text-sm text-myportfolio-text-sub">공개</span>
+          ) : (
+            <span className="text-sm text-myportfolio-text-sub">비공개</span>
+          )}
         </div>
       </div>
     </li>

@@ -1,13 +1,21 @@
+import Input from "@/components/common/Input";
+import { useState } from "react";
 function Center() {
   {
     /* 가운데: 검색창 (자동 확장) */
   }
+  const [searchValue, setSearchValue] = useState("");
   return (
     <div className="flex-1 px-4">
-      <input
+      <Input
         type="text"
         placeholder="Search"
-        className="input input-bordered w-full"
+        value={searchValue}
+        onChange={(e) => {
+          console.log(e.target.value);
+          setSearchValue(e.target.value);
+        }}
+        className="w-full bg-search-bg"
       />
     </div>
   );
