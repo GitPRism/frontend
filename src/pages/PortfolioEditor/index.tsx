@@ -55,8 +55,8 @@ function PortfolioEditor() {
         onClick={() => {
           statusToggle(data?.combinedPortfolioId)
             .then(async () => {
-              await queryClient.invalidateQueries({ queryKey: ["portfolios"] });
-              await queryClient.invalidateQueries({
+              await queryClient.refetchQueries({ queryKey: ["portfolios"] });
+              await queryClient.refetchQueries({
                 queryKey: ["popularPortfolios"],
               });
               alert("등록되었습니다.");

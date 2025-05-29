@@ -8,6 +8,7 @@ function Home() {
   const { data: portfolios, isLoading } = useQuery({
     queryKey: ["portfolios"],
     queryFn: getAllPortfolios,
+    refetchOnMount: true,
   });
 
   const { data: popularPortfolios } = useQuery({
