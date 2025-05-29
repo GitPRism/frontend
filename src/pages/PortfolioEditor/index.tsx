@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import PortfolioTitleForm from "./PortfolioTitleForm";
-import PortfolioContent from "@/components/common/portfolio/PortfolioContent";
+import EditPortfolioContent from "./EditPortfolioContent";
 import RegisterBtn from "./RegisterBtn";
 import { usePortfolioData } from "@/hooks/portfolio/usePortfolioData";
 import { GridLoader } from "react-spinners";
+import { statusToggle } from "@/services/Portfolio/statusToggle";
+import { useQueryClient } from "@tanstack/react-query";
 
 function PortfolioEditor() {
   const [searchParams] = useSearchParams();
@@ -14,8 +16,9 @@ function PortfolioEditor() {
   const { data, isLoading } = usePortfolioData(repoList as string[]);
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState(data?.data[0].title);
 
   if (isLoading) {
     return (
@@ -28,15 +31,20 @@ function PortfolioEditor() {
 
   console.log(data);
   return (
-    <div className="max-w-3xl mx-auto text-black mt-6">
-      <PortfolioTitleForm title={title} onTitleChange={setTitle} />
+    <div className="flex flex-col gap-4 max-w-3xl mx-auto text-black mt-6">
+      <PortfolioTitleForm
+        title={title}
+        onTitleChange={setTitle}
+        repoId={data?.combinedPortfolioId}
+      />
 
       <div className="bg-white">
         {data?.data.map((portfolio: any) => (
           <div key={portfolio.id}>
-            <PortfolioContent
-              title={portfolio.title}
-              description={portfolio.description}
+            <EditPortfolioContent
+              titleData={portfolio.title}
+              descriptionData={portfolio.description}
+              repoId={portfolio.id}
             />
             <div className="border-b border-gray-200"></div>
           </div>
@@ -44,9 +52,23 @@ function PortfolioEditor() {
       </div>
 
       <RegisterBtn
-        repoId={data?.combinedPortfolioId}
-        onSuccess={() => navigate("/home")}
-      />
+        onClick={() => {
+          statusToggle(data?.combinedPortfolioId)
+            .then(async () => {
+              await queryClient.invalidateQueries({ queryKey: ["portfolios"] });
+              await queryClient.invalidateQueries({
+                queryKey: ["popularPortfolios"],
+              });
+              alert("등록되었습니다.");
+              navigate("/home");
+            })
+            .catch((error: any) => {
+              console.log(error.response.data.message);
+            });
+        }}
+      >
+        등록하기
+      </RegisterBtn>
     </div>
   );
 }
