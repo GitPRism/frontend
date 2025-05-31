@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMyRepo } from "@/services/Repo/getMyRepo";
 
+// 레포 선택 모달 열기
 export const useRepos = () => {
   const [repos, setRepos] = useState<any[]>([]);
 
