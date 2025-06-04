@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   define: {
-    global: {},
+    global: "globalThis",
   },
   server: {
     proxy: {
