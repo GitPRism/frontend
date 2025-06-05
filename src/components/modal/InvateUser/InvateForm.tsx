@@ -1,12 +1,19 @@
 import { useState } from "react";
+import apiClient from "@/services/apiClient";
+import { usePortfolioIdStore } from "@/store/usePortfolioIdStore";
 
 function InvateForm() {
   const [userId, setUserId] = useState("");
   const [role, setRole] = useState("EDITOR");
-
+  const { portfolioIdStore } = usePortfolioIdStore();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(userId, role);
+    console.log(portfolioIdStore);
+    apiClient.post(`/api/v1/portfolios/${portfolioIdStore}/collaborators`, {
+      userId,
+      role,
+    });
   };
   return (
     <form className="w-full" onSubmit={handleSubmit}>
