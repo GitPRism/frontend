@@ -6,11 +6,13 @@ function EditPortfolioContent({
   titleData,
   descriptionData,
   repoId,
+  onEdit,
   // 각각의 레포 id가 들어오는지 확인 필요. (다중의 경우)
 }: {
   titleData: string;
   descriptionData: string;
   repoId: number;
+  onEdit?: (field: string, value: string) => void;
 }) {
   const [description, setDescription] = useState(descriptionData);
   const [title, setTitle] = useState(titleData);
@@ -18,11 +20,14 @@ function EditPortfolioContent({
 
   const handleTitleChange = (newTitle: string) => {
     setTitle(newTitle);
+    onEdit?.("title", newTitle);
     setIsSave(false);
   };
 
   const handleDescriptionChange = (newDescription: string) => {
     setDescription(newDescription);
+    console.log(newDescription);
+    onEdit?.("description", newDescription);
     setIsSave(false);
   };
 
@@ -36,6 +41,7 @@ function EditPortfolioContent({
   };
 
   return (
+    // 포트폴리오 내용 수정 폼
     <div className="bg-white p-4 mt-4 flex flex-col gap-2">
       <h1 className="text-2xl font-bold">
         <AutoResizeTextarea

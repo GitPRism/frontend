@@ -11,7 +11,7 @@ function RegisterBtn({
     <div className="flex justify-center">
       <Button
         bgColor="bg-section-bg"
-        textColor="button-text-green"
+        textColor="text-button-text-green"
         rounded="rounded-lg"
         onClick={onClick}
       >

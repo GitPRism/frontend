@@ -26,6 +26,7 @@ function AutoResizeTextarea({
   }, [value]); // value가 바뀔 때마다 resize
 
   return (
+    // 포트폴리오 내용 입력 폼
     <textarea
       ref={textareaRef}
       value={value}

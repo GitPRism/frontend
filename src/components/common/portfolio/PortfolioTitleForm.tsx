@@ -11,6 +11,7 @@ function PortfolioTitleForm({
   onTitleChange: (title: string) => void;
   repoId: number;
 }) {
+  // 포트폴리오 제목 입력 폼
   return (
     <div className="flex items-center gap-4">
       <Input
