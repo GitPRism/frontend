@@ -33,7 +33,7 @@ function App() {
         </Route>
         <Route path="portfolio/:portfolioId" element={<Portfolio />} />
         <Route path="portfoliocreate" element={<PortfolioCreate />} />
-        <Route path="portfolioedit" element={<PortfolioEditor />} />
+        <Route path="portfolioedit/:id" element={<PortfolioEditor />} />
       </Route>
     </Routes>
   );

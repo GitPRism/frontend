@@ -15,12 +15,13 @@ function MyPortfolio() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+  console.log(portfolioList);
 
   return (
     <section>
       <h1 className="text-xl">내 포트폴리오</h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-7 p-2">
-        {[...portfolioList].reverse().map((portfolio: any, idx: number) => (
+        {[...portfolioList.data].map((portfolio: any, idx: number) => (
           <PortfolioCard key={idx} portfolio={portfolio} />
         ))}
       </ul>
