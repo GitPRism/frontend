@@ -23,6 +23,7 @@ function PortfolioEditor() {
       const data = await getDetailPortfolio(portfolioId);
       console.log(data);
       setResponse(data);
+      console.log(data);
     }
     getPortfolio();
   }, [portfolioId]);
@@ -121,7 +122,7 @@ function PortfolioEditor() {
       )}
 
       <PortfolioTitleForm
-        title={title}
+        title={response?.title}
         onTitleChange={(value) => {
           setTitle(value);
           handleEdit("title", value);
@@ -131,14 +132,27 @@ function PortfolioEditor() {
       />
 
       <div className="bg-white">
-        <EditPortfolioContent
+        {response &&
+          response.data &&
+          response.data.map((data: any) => (
+            <EditPortfolioContent
+              key={data.id || data.title}
+              titleData={data.title}
+              descriptionData={data.description}
+              onEdit={(field, value) => {
+                handleEdit(field, value);
+                handleTyping();
+              }}
+            />
+          ))}
+        {/* <EditPortfolioContent
           titleData={response?.title || ""}
           descriptionData={response?.description}
           onEdit={(field, value) => {
             handleEdit(field, value);
             handleTyping();
           }}
-        />
+        /> */}
         <div className="border-b border-gray-200"></div>
       </div>
 

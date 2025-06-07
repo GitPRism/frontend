@@ -10,10 +10,18 @@ function InvateForm() {
     e.preventDefault();
     console.log(userId, role);
     console.log(portfolioIdStore);
-    apiClient.post(`/api/v1/portfolios/${portfolioIdStore}/collaborators`, {
-      userId,
-      role,
-    });
+    apiClient
+      .post(`/api/v1/portfolios/${portfolioIdStore}/collaborators`, {
+        userId,
+        role,
+      })
+      .then(() => {
+        alert("초대 완료");
+        const modal = document.getElementById(
+          "invate-user-modal"
+        ) as HTMLDialogElement;
+        modal?.close();
+      });
   };
   return (
     <form className="w-full" onSubmit={handleSubmit}>

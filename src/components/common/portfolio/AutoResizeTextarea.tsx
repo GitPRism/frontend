@@ -24,7 +24,7 @@ function AutoResizeTextarea({
   useEffect(() => {
     resizeTextarea();
   }, [value]); // value가 바뀔 때마다 resize
-  console.log(value);
+  // console.log(value);
   return (
     // 포트폴리오 내용 입력 폼
     <textarea

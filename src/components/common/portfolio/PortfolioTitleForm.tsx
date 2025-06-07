@@ -21,7 +21,7 @@ function PortfolioTitleForm({
         onChange={(e) => {
           onTitleChange(e.target.value);
         }}
-        className="w-full rounded-lg"
+        className="w-full rounded-lg bg-white"
       />
       <RegisterBtn onClick={() => editPortfolioTitle(repoId, title)}>
         저장하기
