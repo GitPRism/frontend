@@ -3,9 +3,11 @@ import Button from "@/components/common/Button";
 import apiClient from "@/services/apiClient";
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAuthStore } from "@/store/useAuthStore";
 
 function InputForm({ portfolioId }: { portfolioId: string | undefined }) {
   const queryClient = useQueryClient();
+  const { avatarUrl } = useAuthStore();
   const [comment, setComment] = useState("");
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setComment(e.target.value);
@@ -49,7 +51,7 @@ function InputForm({ portfolioId }: { portfolioId: string | undefined }) {
   };
   return (
     <form className="flex items-center gap-2 mb-4 bg-section-bg p-3 rounded-2xl">
-      <Avatar src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+      <Avatar src={avatarUrl} />
       <input
         onChange={onChange}
         value={comment}
@@ -58,7 +60,7 @@ function InputForm({ portfolioId }: { portfolioId: string | undefined }) {
         className="input flex-1 text-black"
       />
       <Button
-        textColor="button-text-green"
+        textColor="text-button-text-green"
         bgColor="bg-[#444444]"
         rounded="rounded-2xl"
         onClick={handleSubmit}

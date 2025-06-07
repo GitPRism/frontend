@@ -23,7 +23,7 @@ function ButtonSection({
 }: ButtonSectionProps) {
   const { isLocalLiked, setIsLocalLiked, localLikeCount, setLocalLikeCount } =
     useLikeState({
-      initialIsLiked: !isLiked, // 이 좋아요 값만 반대로 되어있음
+      initialIsLiked: isLiked,
       initialLikeCount: likeCount,
     });
 

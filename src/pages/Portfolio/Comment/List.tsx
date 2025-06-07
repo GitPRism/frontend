@@ -1,6 +1,7 @@
 import Item from "./Item";
 
 function List({ comments }: { comments: any }) {
+  console.log(comments);
   return (
     <ul className="space-y-4 bg-section-bg p-4 rounded-2xl">
       {comments?.map((comment: any) => (

@@ -12,7 +12,7 @@ function Button({
   onClick,
   type = "button",
   bgColor = "section-bg",
-  textColor = "white",
+  textColor = "text-white",
   rounded = "",
 }: ButtonProps) {
   return (

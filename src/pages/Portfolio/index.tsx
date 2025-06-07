@@ -35,7 +35,13 @@ function Portfolio() {
       />
       {/* 본문 */}
       <div className="bg-white">
-        <PortfolioContent title={data?.title} description={data?.description} />
+        {data?.data.map((portfolio: any) => (
+          <PortfolioContent
+            title={portfolio.title}
+            description={portfolio.description}
+          />
+        ))}
+        {/* <PortfolioContent title={data?.title} description={data?.description} /> */}
       </div>
       <ButtonSection
         portfolioId={data?.portfolioId}
