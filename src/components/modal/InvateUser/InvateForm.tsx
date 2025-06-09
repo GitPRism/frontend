@@ -1,6 +1,7 @@
 import { useState } from "react";
 import apiClient from "@/services/apiClient";
 import { usePortfolioIdStore } from "@/store/usePortfolioIdStore";
+import { addCollaborators } from "@/services/Portfolio/socket/invate/addCollaborators";
 
 function InvateForm() {
   const [userId, setUserId] = useState("");
@@ -10,18 +11,13 @@ function InvateForm() {
     e.preventDefault();
     console.log(userId, role);
     console.log(portfolioIdStore);
-    apiClient
-      .post(`/api/v1/portfolios/${portfolioIdStore}/collaborators`, {
-        userId,
-        role,
-      })
-      .then(() => {
-        alert("초대 완료");
-        const modal = document.getElementById(
-          "invate-user-modal"
-        ) as HTMLDialogElement;
-        modal?.close();
-      });
+    addCollaborators(portfolioIdStore, userId, role).then(() => {
+      alert("초대 완료");
+      const modal = document.getElementById(
+        "invate-user-modal"
+      ) as HTMLDialogElement;
+      modal?.close();
+    });
   };
   return (
     <form className="w-full" onSubmit={handleSubmit}>

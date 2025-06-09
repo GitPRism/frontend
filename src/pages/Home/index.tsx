@@ -27,7 +27,10 @@ function Home() {
         data={popularPortfolios?.data.slice(0, 3) || []}
         showRank={true}
       />
-      <PortfolioList title="전체 포트폴리오" data={portfolios?.data || []} />
+      <PortfolioList
+        title="전체 포트폴리오"
+        data={[...portfolios?.data].reverse() || []}
+      />
     </>
   );
 }

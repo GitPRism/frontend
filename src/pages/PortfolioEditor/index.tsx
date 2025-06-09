@@ -15,15 +15,44 @@ function PortfolioEditor() {
   const { id } = useParams();
   const portfolioId = Number(id);
   const navigate = useNavigate();
-  const [response, setResponse] = useState<any>(null);
   const [title, setTitle] = useState<string>("제목을 입력해주세요");
+  const [contents, setContents] = useState<any[]>([]);
+  const [lastEditedField, setLastEditedField] = useState<string | null>(null);
 
   useEffect(() => {
     async function getPortfolio() {
       const data = await getDetailPortfolio(portfolioId);
-      console.log(data);
-      setResponse(data);
-      console.log(data);
+      console.log("📦 원본 포트폴리오 데이터:", data);
+
+      if (!data) {
+        console.error("❌ 포트폴리오 데이터를 가져오지 못했습니다.");
+        return;
+      }
+
+      setTitle(data.title);
+
+      if (data.data) {
+        // 각 컨텐츠에 부모 portfolioId 추가
+        const contentsWithParentId = data.data.map((content: any) => {
+          console.log("📝 컨텐츠 처리:", {
+            content,
+            parentPortfolioId: data.portfolioId,
+          });
+
+          return {
+            ...content,
+            parentPortfolioId: data.portfolioId, // 부모 portfolioId 추가
+            tempId: undefined, // tempId 제거
+          };
+        });
+
+        console.log("📦 처리된 컨텐츠 데이터:", {
+          originalPortfolioId: data.portfolioId,
+          contents: contentsWithParentId,
+        });
+
+        setContents(contentsWithParentId);
+      }
     }
     getPortfolio();
   }, [portfolioId]);
@@ -40,20 +69,41 @@ function PortfolioEditor() {
 
   const handleContentUpdate = useCallback(
     (data: any) => {
-      if (data.editorId === editorId) return; // 자신의 메시지는 무시
+      console.log("📩 수신된 데이터 (전체):", JSON.stringify(data, null, 2));
+      console.log("📩 수신된 데이터 필드:", data.field);
+      console.log("📩 수신된 데이터 컨텐츠:", data.content);
+      console.log("📩 수신된 데이터 포트폴리오ID:", data.portfolioId);
+      console.log("📩 마지막 수정 필드:", lastEditedField);
 
-      // 데이터 업데이트 로직
-      if (data.field === "title") {
-        setTitle(data.content);
+      // field가 없으면 마지막 수정 필드 사용
+      const fieldToUpdate = data.field || lastEditedField;
+
+      if (fieldToUpdate === "title" || fieldToUpdate === "description") {
+        console.log("🔄 컨텐츠 업데이트:", {
+          field: fieldToUpdate,
+          content: data.content,
+          usingLastEditedField: !data.field,
+        });
+
+        setContents((prevContents) => {
+          const updatedContents = prevContents.map((content) => ({
+            ...content,
+            [fieldToUpdate]: data.content,
+          }));
+          console.log("🔄 업데이트된 컨텐츠:", updatedContents);
+          return updatedContents;
+        });
+      } else {
+        console.log("⚠️ 알 수 없는 필드:", fieldToUpdate);
       }
-      // description 업데이트는 EditPortfolioContent 컴포넌트에서 처리
     },
-    [editorId]
+    [lastEditedField]
   );
 
   const handleTypingUpdate = useCallback(
     (data: any) => {
-      if (data.editorId === editorId) return;
+      // 자신의 타이핑 상태도 표시하도록 수정
+      console.log("✏️ 타이핑 상태 수신:", data);
 
       const editorName = data.editorName || `에디터 ${data.editorId}`;
       setTypingUsers((prev) => {
@@ -74,14 +124,15 @@ function PortfolioEditor() {
         });
       }, 2000);
     },
-    [editorId]
+    [] // editorId 의존성 제거
   );
 
   const handleActiveUsersUpdate = useCallback((users: string[]) => {
+    console.log("👥 활성 사용자 업데이트:", users); // 디버깅용 로그 추가
     setActiveUsers(users);
   }, []);
 
-  const { sendEditMessage, sendTypingStatus } = useWebSocket({
+  const { sendEditMessage, sendTypingStatus, isConnected } = useWebSocket({
     portfolioId,
     editorId,
     editorName,
@@ -90,8 +141,20 @@ function PortfolioEditor() {
     onActiveUsersUpdate: handleActiveUsersUpdate,
   });
 
+  // 웹소켓 연결 상태 모니터링
+  useEffect(() => {
+    console.log("🔌 웹소켓 연결 상태:", {
+      isConnected,
+      portfolioId,
+      editorId,
+      editorName,
+    });
+  }, [isConnected, portfolioId, editorId, editorName]);
+
   // 타이핑 상태 전송 (디바운스 적용)
-  const handleTyping = () => {
+  const handleTyping = useCallback(() => {
+    if (!isConnected) return;
+
     if (typingDebounceRef.current) {
       clearTimeout(typingDebounceRef.current);
     }
@@ -99,12 +162,31 @@ function PortfolioEditor() {
     typingDebounceRef.current = setTimeout(() => {
       sendTypingStatus(true);
     }, 300);
-  };
+  }, [isConnected, sendTypingStatus]);
 
   // 편집 내용 전송
-  const handleEdit = (field: string, content: string) => {
-    sendEditMessage(field, content);
-  };
+  const handleEdit = useCallback(
+    (field: string, content: string) => {
+      if (!isConnected) {
+        console.log("❌ 웹소켓 연결이 없습니다.");
+        return;
+      }
+
+      // 마지막 수정 필드 저장
+      setLastEditedField(field);
+
+      console.log("📤 전송 시도:", {
+        field,
+        content,
+        portfolioId,
+        editorId,
+        editorName,
+        lastEditedField,
+      });
+      sendEditMessage(field, content);
+    },
+    [isConnected, sendEditMessage, portfolioId, editorId, editorName]
+  );
 
   return (
     // 포트폴리오 소켓 수정 페이지
@@ -122,37 +204,43 @@ function PortfolioEditor() {
       )}
 
       <PortfolioTitleForm
-        title={response?.title}
+        title={title}
         onTitleChange={(value) => {
           setTitle(value);
-          handleEdit("title", value);
-          handleTyping();
+          // 소켓 사용하지 않고 직접 상태만 업데이트
         }}
         repoId={portfolioId}
       />
 
       <div className="bg-white">
-        {response &&
-          response.data &&
-          response.data.map((data: any) => (
+        {contents.map((data: any) => {
+          console.log("🎯 렌더링할 컨텐츠:", {
+            ...data,
+            parentPortfolioId: portfolioId,
+          });
+
+          return (
             <EditPortfolioContent
-              key={data.id || data.title}
+              key={data.portfolioId}
+              id={data.portfolioId}
               titleData={data.title}
               descriptionData={data.description}
+              repoId={portfolioId}
               onEdit={(field, value) => {
+                console.log("📝 컨텐츠 편집:", {
+                  field,
+                  value,
+                  portfolioId,
+                  content: data,
+                });
+
+                // title과 description만 소켓으로 전송
                 handleEdit(field, value);
                 handleTyping();
               }}
             />
-          ))}
-        {/* <EditPortfolioContent
-          titleData={response?.title || ""}
-          descriptionData={response?.description}
-          onEdit={(field, value) => {
-            handleEdit(field, value);
-            handleTyping();
-          }}
-        /> */}
+          );
+        })}
         <div className="border-b border-gray-200"></div>
       </div>
 

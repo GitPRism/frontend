@@ -70,26 +70,63 @@ export function useWebSocket({
         const subscriptions = [
           client.subscribe(`/topic/portfolio.${portfolioId}`, (message) => {
             const data = JSON.parse(message.body);
-            console.log(data);
+            console.log("📥 메시지 수신 (portfolio):", {
+              topic: `/topic/portfolio.${portfolioId}`,
+              data,
+              editorId,
+              editorName,
+              subscriptionId: message.headers["subscription"],
+              messageId: message.headers["message-id"],
+            });
             callbacksRef.current.onContentUpdate?.(data);
           }),
           client.subscribe(`/topic/typing.${portfolioId}`, (message) => {
             const data = JSON.parse(message.body);
-            console.log(data);
+            console.log("📥 메시지 수신 (typing):", {
+              topic: `/topic/typing.${portfolioId}`,
+              data,
+              editorId,
+              editorName,
+            });
             callbacksRef.current.onTypingUpdate?.(data);
           }),
           client.subscribe(`/topic/active.${portfolioId}`, (message) => {
             const data = JSON.parse(message.body);
-            console.log(data);
+            console.log("📥 메시지 수신 (active):", {
+              topic: `/topic/active.${portfolioId}`,
+              data,
+              editorId,
+              editorName,
+            });
             callbacksRef.current.onActiveUsersUpdate?.(
               data.activeEditors || []
             );
           }),
           client.subscribe(`/topic/invite.${portfolioId}`, (msg) => {
             const data = JSON.parse(msg.body);
-            console.log(data);
+            console.log("📥 메시지 수신 (invite):", {
+              topic: `/topic/invite.${portfolioId}`,
+              data,
+              editorId,
+              editorName,
+            });
           }),
         ];
+
+        // 구독 정보를 클라이언트에 저장
+        (client as ExtendedClient).subscriptions = subscriptions;
+        console.log("📡 WebSocket 구독 설정 완료:", {
+          portfolioId,
+          editorId,
+          editorName,
+          subscriptionCount: subscriptions.length,
+          topics: [
+            `/topic/portfolio.${portfolioId}`,
+            `/topic/typing.${portfolioId}`,
+            `/topic/active.${portfolioId}`,
+            `/topic/invite.${portfolioId}`,
+          ],
+        });
 
         // 참여 메시지 전송
         client.publish({
@@ -101,13 +138,15 @@ export function useWebSocket({
           }),
         });
 
-        // 구독 정보를 클라이언트에 저장
-        (client as ExtendedClient).subscriptions = subscriptions;
         clientRef.current = client as ExtendedClient;
       },
       onStompError: (frame) => {
-        console.error("❌ STOMP 에러:", frame.headers["message"]);
-        console.error("상세 내용:", frame.body);
+        console.error("❌ STOMP 에러:", {
+          message: frame.headers["message"],
+          body: frame.body,
+          command: frame.command,
+          headers: frame.headers,
+        });
         setIsConnected(false);
         connectingRef.current = false;
       },
@@ -136,7 +175,7 @@ export function useWebSocket({
       connectingRef.current = false;
       setIsConnected(false);
     }
-  }, [portfolioId, editorId, editorName]);
+  }, [portfolioId, editorId, editorName, token]);
 
   // 웹소켓 연결 관리
   useEffect(() => {
@@ -163,8 +202,21 @@ export function useWebSocket({
         !clientRef.current?.connected ||
         !portfolioId ||
         !editorId
-      )
+      ) {
+        console.log("❌ 메시지 전송 실패:", {
+          isConnected,
+          portfolioId,
+          editorId,
+        });
         return;
+      }
+
+      console.log("📤 메시지 전송 시도:", {
+        field,
+        content,
+        editorId,
+        editorName,
+      });
 
       clientRef.current.publish({
         destination: "/app/edit",
@@ -188,8 +240,16 @@ export function useWebSocket({
         !clientRef.current?.connected ||
         !portfolioId ||
         !editorId
-      )
+      ) {
+        console.log("❌ 타이핑 상태 전송 실패:", {
+          isConnected,
+          portfolioId,
+          editorId,
+        });
         return;
+      }
+
+      console.log("✏️ 타이핑 상태 전송:", { isTyping, editorId, editorName });
 
       clientRef.current.publish({
         destination: "/app/typing",

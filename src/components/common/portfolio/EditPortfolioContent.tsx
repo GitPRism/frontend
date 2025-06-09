@@ -3,12 +3,14 @@ import AutoResizeTextarea from "./AutoResizeTextarea";
 import { editPortfolioContent } from "@/services/Portfolio/editPortfolioData";
 
 function EditPortfolioContent({
+  id,
   titleData,
   descriptionData,
   repoId,
   onEdit,
   // 각각의 레포 id가 들어오는지 확인 필요. (다중의 경우)
 }: {
+  id?: number;
   titleData: string;
   descriptionData: string;
   repoId?: number;
@@ -35,7 +37,6 @@ function EditPortfolioContent({
 
   const handleDescriptionChange = (newDescription: string) => {
     setDescription(newDescription);
-    console.log(newDescription);
     onEdit?.("description", newDescription);
     setIsSave(false);
   };

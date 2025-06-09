@@ -8,6 +8,8 @@ import InvateUser from "@/components/modal/InvateUser";
 import { statusToggle } from "@/services/Portfolio/statusToggle";
 import { usePortfolioIdStore } from "@/store/usePortfolioIdStore";
 import { useQueryClient } from "@tanstack/react-query";
+import { addCollaborators } from "@/services/Portfolio/socket/invate/addCollaborators";
+import { useAuthStore } from "@/store/useAuthStore";
 // header의 오른쪽: 버튼, 알림, 아바타
 function End() {
   const { repos, handleOpenRepoModal } = useRepos();
@@ -15,7 +17,7 @@ function End() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { portfolioIdStore } = usePortfolioIdStore();
-
+  const editorId = useAuthStore((state) => state.userId);
   const isPortfolioEditor =
     location.pathname.includes("/portfoliocreate") ||
     location.pathname.includes("/portfolioedit");
@@ -32,6 +34,9 @@ function End() {
               queryKey: ["popularPortfolios"],
             });
             navigate(`/portfolioedit/${portfolioIdStore}`);
+            addCollaborators(portfolioIdStore, String(editorId), "EDITOR").then(
+              (res) => console.log(res)
+            );
           })
           .catch((error: any) => {
             console.log(error.response.data.message);
