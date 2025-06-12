@@ -3,8 +3,8 @@ import Title from "./Title";
 import PortfolioContent from "@/components/common/portfolio/PortfolioContent";
 import Comment from "./Comment";
 import { useQuery } from "@tanstack/react-query";
-import apiClient from "@/services/apiClient";
 import ButtonSection from "./ButtonSection";
+import { getDetailPortfolio } from "@/services/Portfolio/getDetailPortfolio";
 
 function Portfolio() {
   const { portfolioId } = useParams();
@@ -12,9 +12,9 @@ function Portfolio() {
   const { data, isLoading } = useQuery({
     queryKey: ["portfolio", portfolioId],
     queryFn: async () => {
-      const response = await apiClient.get(`api/v1/portfolios/${portfolioId}`);
-      console.log(response.data);
-      return response.data;
+      const response = await getDetailPortfolio(Number(portfolioId));
+      console.log(response);
+      return response;
     },
     enabled: !!portfolioId, // 포트폴리오 아이디가 없으면 데이터를 가져오지 않음
     staleTime: Infinity,
@@ -35,7 +35,13 @@ function Portfolio() {
       />
       {/* 본문 */}
       <div className="bg-white">
-        <PortfolioContent title={data?.title} description={data?.description} />
+        {data?.data.map((portfolio: any) => (
+          <PortfolioContent
+            title={portfolio.title}
+            description={portfolio.description}
+          />
+        ))}
+        {/* <PortfolioContent title={data?.title} description={data?.description} /> */}
       </div>
       <ButtonSection
         portfolioId={data?.portfolioId}

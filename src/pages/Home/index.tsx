@@ -8,6 +8,7 @@ function Home() {
   const { data: portfolios, isLoading } = useQuery({
     queryKey: ["portfolios"],
     queryFn: getAllPortfolios,
+    refetchOnMount: true,
   });
 
   const { data: popularPortfolios } = useQuery({
@@ -28,7 +29,7 @@ function Home() {
       />
       <PortfolioList
         title="전체 포트폴리오"
-        data={[...portfolios.data].reverse() || []}
+        data={[...portfolios?.data].reverse() || []}
       />
     </>
   );

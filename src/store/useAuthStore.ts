@@ -4,15 +4,15 @@ import { persist } from "zustand/middleware";
 interface AuthState {
   token: string | null;
   githubId: string | null;
-  username: string | null;
+  username: string;
   email: string | null;
-  userId: string | null;
+  userId: number;
   avatarUrl: string;
   setToken: (token: string) => void;
   setGithubId: (githubId: string) => void;
   setUsername: (username: string) => void;
   setEmail: (email: string) => void;
-  setUserId: (userId: string) => void;
+  setUserId: (userId: number) => void;
   setAvatarUrl: (avatarUrl: string) => void;
   logout: () => void;
 }
@@ -25,13 +25,13 @@ export const useAuthStore = create(
       githubId: "",
       username: "",
       email: "",
-      userId: "",
+      userId: 0,
       avatarUrl: "",
       setToken: (token: string) => set({ token }),
       setGithubId: (githubId: string) => set({ githubId }),
       setUsername: (username: string) => set({ username }),
       setEmail: (email: string) => set({ email }),
-      setUserId: (userId: string) => set({ userId }),
+      setUserId: (userId: number) => set({ userId }),
       setAvatarUrl: (avatarUrl: string) => set({ avatarUrl }),
       logout: () => {
         set({
@@ -39,7 +39,7 @@ export const useAuthStore = create(
           githubId: "",
           username: "",
           email: "",
-          userId: "",
+          userId: 0,
           avatarUrl: "",
         });
         window.location.href = "/";

@@ -10,11 +10,17 @@ import MyBookmark from "@/pages/MyBookmark";
 import MyActivity from "@/pages/MyActivity";
 import Portfolio from "./pages/Portfolio";
 import PortfolioEditor from "@/pages/PortfolioEditor";
+// import WebSocketEditor from "@/pages/WebSocketEditor";
+import PortfolioCreate from "@/pages/PortfolioCreate";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Onboarding />} />
+      {/* <Route
+        path="test"
+        element={<WebSocketEditor portfolioId={1} editorId={1} />}
+      /> */}
       <Route path="/api/v1/github/callback" element={<GithubCallback />} />
       <Route element={<HeaderLayout />}>
         <Route element={<SidebarLayout />}>
@@ -26,7 +32,8 @@ function App() {
           </Route>
         </Route>
         <Route path="portfolio/:portfolioId" element={<Portfolio />} />
-        <Route path="portfolioedit" element={<PortfolioEditor />} />
+        <Route path="portfoliocreate" element={<PortfolioCreate />} />
+        <Route path="portfolioedit/:id" element={<PortfolioEditor />} />
       </Route>
     </Routes>
   );

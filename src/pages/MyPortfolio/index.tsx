@@ -16,6 +16,8 @@ function MyPortfolio() {
     return <div>Loading...</div>;
   }
 
+  console.log(portfolioList.reverse());
+
   return (
     <section>
       <h1 className="text-xl">내 포트폴리오</h1>

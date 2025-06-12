@@ -30,7 +30,7 @@ function SelectRepos({ repos }: Props) {
       const repoQuery = selectedRepo.map(encodeURIComponent).join(",");
       const modal = document.getElementById("my_modal_3") as HTMLDialogElement;
       modal?.close();
-      navigate(`portfolioedit?repos=${repoQuery}`);
+      navigate(`portfoliocreate?repos=${repoQuery}`);
     }
   };
 
